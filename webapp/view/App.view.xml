@@ -16,6 +16,34 @@
             backgroundDesign="Solid"
         >
             <content>
+                <HBox
+                    class="sapUiMediumMarginBottom"
+                    id="ThemeHBox"
+                >
+                    <Select
+                        id="themeSelect"
+                        forceSelection="false"
+                        valueState="None"
+                        selectedKey="{modelThemes>/SelectedTheme}"
+                        change=".onSelectTheme"
+                        items="{
+						path: 'modelThemes>/ThemesCollection',
+						sorter: { path: 'Name' }
+					}"
+                    >
+                        <core:Item
+                            key="{modelThemes>ThemeId}"
+                            text="{modelThemes>Name}"
+                        />
+                    </Select>
+                </HBox>
+                <Title
+                    text="{i18n>appTitle}"
+                    titleStyle="H2"
+                    textAlign="Center"
+                    width="100%"
+                />
+
                 <core:Icon
                     src="sap-icon://sap-ui5"
                     size="20rem"
@@ -23,13 +51,6 @@
                     width="100%"
                     tooltip="{i18n>appTitle}"
                     color="#1873B4"
-                />
-
-                <Title
-                    text="{i18n>appTitle}"
-                    titleStyle="H2"
-                    textAlign="Center"
-                    width="100%"
                 />
 
                 <ProgressIndicator
