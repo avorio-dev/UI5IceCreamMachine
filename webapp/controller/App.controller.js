@@ -30,7 +30,9 @@ sap.ui.define([
 		add here your component
 	*/
 	function hideComponent(oContext) {
+		var oStartButton = oContext.getView().byId("startBtn");
 
+		oStartButton.setVisible(false);
 	}
 
 
@@ -43,7 +45,10 @@ sap.ui.define([
 
 		if (oLoadingBar.getPercentValue() === 100) {
 			// set visible = true to your component here 
+			
+			var oStartButton = oContext.getView().byId("startBtn");
 
+			oStartButton.setVisible(true);
 		}
 	}
 

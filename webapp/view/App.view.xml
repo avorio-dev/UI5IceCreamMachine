@@ -8,11 +8,12 @@
 >
     <App id="app">
         <Panel
-            headerText="{i18n>welcomePanel}"
+            headerText=""
             class="sapUiResponsiveMargin"
             width="auto"
             expandable="{device>/system/phone}"
             expanded="{= !${device>/system/phone}}"
+            backgroundDesign="Solid"
         >
             <content>
                 <core:Icon
@@ -21,6 +22,14 @@
                     class="sapUiMediumMarginBottom"
                     width="100%"
                     tooltip="{i18n>appTitle}"
+                    color="#1873B4"
+                />
+
+                <Title
+                    text="{i18n>appTitle}"
+                    titleStyle="H2"
+                    textAlign="Center"
+                    width="100%"
                 />
 
                 <ProgressIndicator
@@ -29,8 +38,24 @@
                     displayValue="0%"
                     displayOnly="true"
                     displayAnimation="false"
-                    state="Information"
+                    state="Success"
                 />
+
+                <FlexBox
+                    items=""
+                    justifyContent="Center"
+                    wrap="Wrap"
+                    class="sapUiSmallMarginBottom"
+                >
+                    <Button
+                        id="startBtn"
+                        icon="sap-icon://activate"
+                        text="{i18n>startButton}"
+                        type="Emphasized"
+                        class="sapUiResponsiveMargin"
+                        press=".onStartBtn"
+                    />
+                </FlexBox>
             </content>
         </Panel>
     </App>
