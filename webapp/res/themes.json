@@ -1,0 +1,34 @@
+{ 
+    "SelectedTheme": "sap_horizon",
+    "ThemesCollection": [
+      {
+        "ThemeId": "sap_horizon",
+        "Name": "Morning Horizon"
+      },
+      {
+        "ThemeId": "sap_horizon_dark",
+        "Name": "Evening Horizon"
+      },
+      {
+        "ThemeId": "sap_belize",
+        "Name": "Belize"
+      },
+      {
+        "ThemeId": "sap_belize_plus",
+        "Name": "Belize Plus"
+      },
+      {
+        "ThemeId": "sap_bluecrystal",
+        "Name": "SAP Blue Crystal"
+      },
+      {
+        "ThemeId": "sap_fiori_3",
+        "Name": "Quartz Light"
+      },
+      {
+        "ThemeId": "sap_fiori_3_dark",
+        "Name": "Quartz Dark"
+      }
+    ]
+  }
+  

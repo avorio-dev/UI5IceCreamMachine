@@ -64,80 +64,52 @@ sap.ui.define([
 	}
 
 
+	/* Load all components of the View */
+	function _loadComponents(oContext) {
+		var oModelThemes = oContext.getOwnerComponent().getModel("themes");
+		oContext.getView().setModel(oModelThemes, "modelThemes");
+		_setTheme(oContext);
+
+
+		// Set LOADING Bar and component visibility
+		_hideLoadingBar(oContext);
+		_hideComponent(oContext);
+		setTimeout(_showLoadingBar, 1000, oContext);
+
+		var maxProgress = 100,
+			updateInterval = 15,
+			currentValue = 0;
+
+		function _loadingBar(oContext) {
+			var oLoadingBar = oContext.getView().byId("loadingBar");
+
+			if (currentValue <= maxProgress) {
+				oLoadingBar.setPercentValue(+currentValue);
+				oLoadingBar.setDisplayValue(currentValue + "%");
+				setTimeout(_loadingBar, updateInterval, oContext);
+
+				currentValue += 1;
+			} else {
+				setTimeout(_hideLoadingBar, 200, oContext);
+				setTimeout(_showComponent, 250, oContext);
+			}
+		}
+
+		setTimeout(_loadingBar, 1500, oContext);
+	}
+
 	return Controller.extend("UI5IceCreamMachine.controller.App", {
 
 		/* Initialize all components on first call of the page */
 		onInit: function () {
-
-			// Set THEME Selector
-			var oDataThemes = {
-				"SelectedTheme": "sap_horizon",
-				"ThemesCollection": [
-					{
-						"ThemeId": "sap_horizon",
-						"Name": "Morning Horizon"
-					},
-					{
-						"ThemeId": "sap_horizon_dark",
-						"Name": "Evening Horizon"
-					},
-					{
-						"ThemeId": "sap_belize",
-						"Name": "Belize"
-					},
-					{
-						"ThemeId": "sap_belize_plus",
-						"Name": "Belize Plus"
-					},
-					{
-						"ThemeId": "sap_bluecrystal",
-						"Name": "SAP Blue Crystal"
-					},
-					{
-						"ThemeId": "sap_fiori_3",
-						"Name": "Quartz Light"
-					},
-					{
-						"ThemeId": "sap_fiori_3_dark",
-						"Name": "Quartz Dark"
-					}
-				]
-			};
-			var oModelThemes = new JSONModel(oDataThemes);
-			this.getView().setModel(oModelThemes, "modelThemes");
-			_setTheme(this);
-
-
-			// Set LOADING Bar and component visibility
-			_hideLoadingBar(this);
-			_hideComponent(this);
-			setTimeout(_showLoadingBar, 1000, this);
-
-			var maxProgress = 100,
-				updateInterval = 15,
-				currentValue = 0;
-
-			function _loadingBar(oContext) {
-				var oLoadingBar = oContext.getView().byId("loadingBar");
-
-				if (currentValue <= maxProgress) {
-					oLoadingBar.setPercentValue(+currentValue);
-					oLoadingBar.setDisplayValue(currentValue + "%");
-					setTimeout(_loadingBar, updateInterval, oContext);
-
-					currentValue += 1;
-				} else {
-					setTimeout(_hideLoadingBar, 200, oContext);
-					setTimeout(_showComponent, 250, oContext);
-				}
-			}
-
-			setTimeout(_loadingBar, 1500, this);
+			_loadComponents(this);
 		},
 
 		/* Function that will be called on Start Button Press */
 		onStartBtn: function () {
-			window.open("https://shorturl.at/tILT5", "_blank");
+			//window.open("https://shorturl.at/tILT5", "_blank");
+			var oRouter = this.getOwnerComponent().getRouter();
+			oRouter.navTo("homepage");
 		},
 
 		onSelectTheme: function () {

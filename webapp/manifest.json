@@ -14,7 +14,6 @@
 			"version": "1.40.12"
 		}
 	},
-
 	"sap.ui": {
 		"technology": "UI5",
 		"icons": {
@@ -33,17 +32,15 @@
 		"supportedThemes": [
 			"sap_hcb",
 			"sap_belize"
-
 		]
 	},
-
 	"sap.ui5": {
 		"rootView": {
 			"viewName": "UI5IceCreamMachine.view.App",
 			"type": "XML"
 		},
 		"dependencies": {
-			"minUI5Version": "1.30.0",
+			"minUI5Version": "1.60.0",
 			"libs": {
 				"sap.ui.core": {},
 				"sap.m": {},
@@ -64,12 +61,55 @@
 				"settings": {
 					"bundleName": "UI5IceCreamMachine.i18n.i18n"
 				}
+			},
+			"themes":{
+				"type": "sap.ui.model.json.JSONModel",
+				"settings": {
+
+				},
+				"uri": "res/themes.json"
+			}
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"type": "View",
+				"viewType": "XML",
+				"path": "UI5IceCreamMachine.view",
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"transition": "slide"
+			},
+			"routes": [
+				{
+					"pattern": "",
+					"name": "app",
+					"target": "app"
+				},
+				{
+					"pattern": "homepage",
+					"name": "homepage",
+					"target": "homepage"
+				}
+			],
+			"targets": {
+				"app": {
+					"viewId": "app",
+					"viewName": "App",
+					"transition": "flip"
+				},
+				"homepage": {
+					"viewId": "homepage",
+					"viewName": "Homepage"
+				}
 			}
 		},
 		"resources": {
-			"css": [{
-				"uri": "css/style.css"
-			}]
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
 		}
 	}
 }
