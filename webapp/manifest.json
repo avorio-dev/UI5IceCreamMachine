@@ -84,12 +84,12 @@
 			"routes": [
 				{
 					"pattern": "",
-					"name": "app",
+					"name": "toApp",
 					"target": "app"
 				},
 				{
 					"pattern": "homepage",
-					"name": "homepage",
+					"name": "toHomepage",
 					"target": "homepage"
 				}
 			],
