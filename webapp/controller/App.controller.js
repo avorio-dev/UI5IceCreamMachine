@@ -113,7 +113,7 @@ sap.ui.define([
 		onStartBtn: function () {
 			//window.open("https://shorturl.at/tILT5", "_blank");
 			var oRouter = this.getOwnerComponent().getRouter();
-			oRouter.navTo("toHomepage");
+			oRouter.navTo("toDashboard");
 		},
 
 		onSelectTheme: function () {

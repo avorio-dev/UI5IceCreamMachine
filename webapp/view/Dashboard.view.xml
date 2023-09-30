@@ -1,12 +1,12 @@
 <mvc:View
-    controllerName="UI5IceCreamMachine.controller.Homepage"
+    controllerName="UI5IceCreamMachine.controller.Dashboard"
     xmlns:html="http://www.w3.org/1999/xhtml"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
     displayBlock="true"
     xmlns="sap.m"
 >
-    <Page title="Homepage">
+    <Page title="{i18n>dashboardTitle}">
         
     </Page>
 </mvc:View>

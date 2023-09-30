@@ -88,9 +88,9 @@
 					"target": "app"
 				},
 				{
-					"pattern": "homepage",
-					"name": "toHomepage",
-					"target": "homepage"
+					"pattern": "toDashboard",
+					"name": "toDashboard",
+					"target": "dashboard"
 				}
 			],
 			"targets": {
@@ -99,9 +99,9 @@
 					"viewName": "App",
 					"transition": "flip"
 				},
-				"homepage": {
-					"viewId": "homepage",
-					"viewName": "Homepage"
+				"dashboard": {
+					"viewId": "dashboard",
+					"viewName": "Dashboard"
 				}
 			}
 		},

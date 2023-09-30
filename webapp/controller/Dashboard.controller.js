@@ -5,7 +5,7 @@ sap.ui.define([
 ], function (Controller, JSONModel) {
     "use strict";
 
-    return Controller.extend("UI5IceCreamMachine.controller.Homepage", {
+    return Controller.extend("UI5IceCreamMachine.controller.Dashboard", {
 
         /* Initialize all components on first call of the page */
         onInit: function () {
