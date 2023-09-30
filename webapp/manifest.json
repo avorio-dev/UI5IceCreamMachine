@@ -78,7 +78,8 @@
 				"path": "UI5IceCreamMachine.view",
 				"controlId": "app",
 				"controlAggregation": "pages",
-				"transition": "slide"
+				"transition": "slide",
+				"async": true
 			},
 			"routes": [
 				{

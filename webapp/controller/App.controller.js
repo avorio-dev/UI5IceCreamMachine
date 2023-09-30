@@ -5,6 +5,11 @@ sap.ui.define([
 ], function (Controller, JSONModel) {
 	"use strict";
 
+	// Globals
+	var _maxProgress = 100,
+		_updateInterval = 15;
+
+
 	/* Hide Loading Bar */
 	function _hideLoadingBar(oContext) {
 		var oLoadingBar = oContext.getView().byId("loadingBar");
@@ -55,6 +60,26 @@ sap.ui.define([
 	}
 
 
+	/* 
+		Animation of Loading Bar, at the end, all components will be print on the screen
+	*/
+	function _fillLoadingBar(oContext) {
+
+		var oLoadingBar = oContext.getView().byId("loadingBar"),
+			currentValue = oLoadingBar.getPercentValue();
+
+		if (currentValue < _maxProgress) {
+			currentValue += 1;
+			oLoadingBar.setPercentValue(+currentValue);
+			oLoadingBar.setDisplayValue(currentValue + "%");
+			setTimeout(_fillLoadingBar, _updateInterval, oContext);
+
+		} else {
+			setTimeout(_hideLoadingBar, 200, oContext);
+			setTimeout(_showComponent, 200, oContext);
+		}
+	}
+
 	/* Theme Switch Function */
 	function _setTheme(oContext) {
 		var oThemeSelect = oContext.getView().byId("themeSelect");
@@ -66,36 +91,18 @@ sap.ui.define([
 
 	/* Load all components of the View */
 	function _loadComponents(oContext) {
+
+		// Set THEMES Selector
 		var oModelThemes = oContext.getOwnerComponent().getModel("themes");
 		oContext.getView().setModel(oModelThemes, "modelThemes");
 		_setTheme(oContext);
 
 
-		// Set LOADING Bar and component visibility
+		// Set LOADING Bar and components visibility
 		_hideLoadingBar(oContext);
 		_hideComponent(oContext);
 		setTimeout(_showLoadingBar, 1000, oContext);
-
-		var maxProgress = 100,
-			updateInterval = 15,
-			currentValue = 0;
-
-		function _loadingBar(oContext) {
-			var oLoadingBar = oContext.getView().byId("loadingBar");
-
-			if (currentValue <= maxProgress) {
-				oLoadingBar.setPercentValue(+currentValue);
-				oLoadingBar.setDisplayValue(currentValue + "%");
-				setTimeout(_loadingBar, updateInterval, oContext);
-
-				currentValue += 1;
-			} else {
-				setTimeout(_hideLoadingBar, 200, oContext);
-				setTimeout(_showComponent, 250, oContext);
-			}
-		}
-
-		setTimeout(_loadingBar, 1500, oContext);
+		setTimeout(_fillLoadingBar, 1500, oContext);
 	}
 
 	return Controller.extend("UI5IceCreamMachine.controller.App", {
