@@ -16,7 +16,6 @@ sap.ui.define([
 		oLoadingBar.setVisible(false);
 	}
 
-
 	/* Show Loading Bar */
 	function _showLoadingBar(oContext) {
 		var oLoadingBar = oContext.getView().byId("loadingBar");
@@ -26,7 +25,6 @@ sap.ui.define([
 		oLoadingBar.setPercentValue(0);
 		oLoadingBar.setDisplayValue(0 + "%");
 	}
-
 
 	/*
 		If you want to hide some component, for example when loading bar is filling up,
@@ -39,7 +37,6 @@ sap.ui.define([
 		oStartButton.setVisible(false);
 		oThemeSelect.setVisible(false);
 	}
-
 
 	/*
 		If you want to show some components, for example when loading bar is full,
@@ -58,7 +55,6 @@ sap.ui.define([
 			oThemeSelect.setVisible(true);
 		}
 	}
-
 
 	/* 
 		Animation of Loading Bar, at the end, all components will be print on the screen
@@ -88,7 +84,6 @@ sap.ui.define([
 		sap.ui.getCore().applyTheme(selectedKeyTheme);
 	}
 
-
 	/* Load all components of the View */
 	function _loadComponents(oContext) {
 
@@ -104,6 +99,8 @@ sap.ui.define([
 		setTimeout(_showLoadingBar, 1000, oContext);
 		setTimeout(_fillLoadingBar, 1500, oContext);
 	}
+
+	/* -------------------------------------------------------------------------*/
 
 	return Controller.extend("UI5IceCreamMachine.controller.App", {
 
