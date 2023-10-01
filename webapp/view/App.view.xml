@@ -7,77 +7,119 @@
     xmlns="sap.m"
 >
     <App id="app">
-        <Panel
-            headerText=""
-            class="sapUiResponsiveMargin"
-            width="auto"
-            expandable="{device>/system/phone}"
-            expanded="{= !${device>/system/phone}}"
-            backgroundDesign="Solid"
+        <HBox
+            id="appHBox"
+            width="100%"
         >
-            <content>
-                <HBox
-                    class="sapUiMediumMarginBottom"
-                    id="ThemeHBox"
+            <Toolbar>
+                <ToolbarSpacer />
+                <MenuButton
+                    text="{i18n>settingsMenu}"
+                    icon="sap-icon://action-settings"
+                    id="settingsMenu"
+                    useDefaultActionOnly="true"
                 >
-                    <Select
-                        id="themeSelect"
-                        forceSelection="false"
-                        valueState="None"
-                        selectedKey="{modelThemes>/SelectedTheme}"
-                        change=".onSelectTheme"
-                        items="{
+                    <menu>
+                        <Menu itemSelected=".onMenuAction">
+                            <MenuItem
+                                text="{i18n>setThemeItemMenu}"
+                                icon="sap-icon://palette"
+                                id="setThemeMenu"
+                            >
+                                <!-- 
+                                <items>
+                                    
+                                    <MenuItem
+                                        text="{themesCollection>Name}"
+                                        key="{themesCollection>ThemeId}"
+                                    />
+                                    
+                                    <MenuItem text="testo" key="chiave"></MenuItem>
+                                </items>
+                                -->
+                            </MenuItem>
+
+                            <MenuItem
+                                text="{i18n>getInfoItemMenu}"
+                                icon="sap-icon://display"
+                            />
+                        </Menu>
+                    </menu>
+                </MenuButton>
+            </Toolbar>
+            <FlexBox
+                items=""
+                justifyContent="End"
+                wrap="Wrap"
+                class="sapUiTinyMarginTop"
+            >
+                <Select
+                    id="themeSelect"
+                    forceSelection="false"
+                    valueState="None"
+                    selectedKey="{modelThemes>/SelectedTheme}"
+                    change=".onSelectTheme"
+                    items="{
 						path: 'modelThemes>/ThemesCollection',
 						sorter: { path: 'Name' }
 					}"
-                    >
-                        <core:Item
-                            key="{modelThemes>ThemeId}"
-                            text="{modelThemes>Name}"
-                        />
-                    </Select>
-                </HBox>
-                <Title
-                    text="{i18n>appTitle}"
-                    titleStyle="H2"
-                    textAlign="Center"
-                    width="100%"
-                />
-
-                <core:Icon
-                    src="sap-icon://sap-ui5"
-                    size="20rem"
-                    class="sapUiMediumMarginBottom"
-                    width="100%"
-                    tooltip="{i18n>appTitle}"
-                    color="#1873B4"
-                />
-
-                <ProgressIndicator
-                    id="loadingBar"
-                    class="sapUiSmallMarginBottom"
-                    displayValue="0%"
-                    displayOnly="true"
-                    displayAnimation="false"
-                    state="Success"
-                />
-
-                <FlexBox
-                    items=""
-                    justifyContent="Center"
-                    wrap="Wrap"
-                    class="sapUiSmallMarginBottom"
                 >
-                    <Button
-                        id="startBtn"
-                        icon="sap-icon://activate"
-                        text="{i18n>startButton}"
-                        type="Emphasized"
-                        class="sapUiResponsiveMargin"
-                        press=".onStartBtn"
+                    <core:Item
+                        key="{modelThemes>ThemeId}"
+                        text="{modelThemes>Name}"
                     />
-                </FlexBox>
-            </content>
-        </Panel>
+                </Select>
+            </FlexBox>
+
+            <Panel
+                headerText=""
+                backgroundDesign="Solid"
+                expandable="{device>/system/phone}"
+                expanded="{= !${device>/system/phone}}"
+            >
+                <content>
+                    <Title
+                        text="{i18n>appTitle}"
+                        titleStyle="H2"
+                        textAlign="Center"
+                        width="100%"
+                        class="sapUiMediumMarginTop"
+                    />
+
+                    <core:Icon
+                        src="sap-icon://sap-ui5"
+                        size="20rem"
+                        width="100%"
+                        tooltip="{i18n>appTitle}"
+                        color="#1873B4"
+                        class="sapUiMediumMarginTop"
+                    />
+
+                    <ProgressIndicator
+                        id="loadingBar"
+                        displayValue="0%"
+                        displayOnly="true"
+                        displayAnimation="false"
+                        state="Success"
+                        class="sapUiMediumMarginTop"
+                    />
+
+                    <FlexBox
+                        items=""
+                        justifyContent="Center"
+                        wrap="Wrap"
+                        class="sapUiMediumMarginTop sapUiTinyMarginBottom"
+                    >
+                        <Button
+                            id="dashboardBtn"
+                            icon="sap-icon://activate"
+                            text="{i18n>dashboardButton}"
+                            type="Emphasized"
+                            press=".onDashboardBtn"
+                        />
+                    </FlexBox>
+                </content>
+            </Panel>
+        </HBox>
     </App>
 </mvc:View>

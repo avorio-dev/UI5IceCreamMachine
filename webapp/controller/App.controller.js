@@ -1,8 +1,10 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
-	'sap/ui/model/json/JSONModel'
+	'sap/ui/model/json/JSONModel',
+	"sap/m/MenuItem",
+  	"sap/m/Menu"
 
-], function (Controller, JSONModel) {
+], function (Controller, JSONModel, MenuItem, Menu) {
 	"use strict";
 
 	// Globals
@@ -31,11 +33,9 @@ sap.ui.define([
 		add here your component
 	*/
 	function _hideComponent(oContext) {
-		var oStartButton = oContext.getView().byId("startBtn"),
-			oThemeSelect = oContext.getView().byId("themeSelect");
+		var oDashboardButton = oContext.getView().byId("dashboardBtn");
 
-		oStartButton.setVisible(false);
-		oThemeSelect.setVisible(false);
+		oDashboardButton.setVisible(false);
 	}
 
 	/*
@@ -48,11 +48,9 @@ sap.ui.define([
 		if (oLoadingBar.getPercentValue() === 100) {
 			// set visible = true to your component here 
 
-			var oStartButton = oContext.getView().byId("startBtn"),
-				oThemeSelect = oContext.getView().byId("themeSelect");
+			var oDashboardButton = oContext.getView().byId("dashboardBtn");
 
-			oStartButton.setVisible(true);
-			oThemeSelect.setVisible(true);
+			oDashboardButton.setVisible(true);
 		}
 	}
 
@@ -90,6 +88,25 @@ sap.ui.define([
 		// Set THEMES Selector
 		var oModelThemes = oContext.getOwnerComponent().getModel("themes");
 		oContext.getView().setModel(oModelThemes, "modelThemes");
+
+		oModelThemes.attachRequestCompleted(function () {
+
+			var oThemesCollection = oModelThemes.getProperty("/ThemesCollection");
+			var oSetThemeMenu = oContext.getView().byId("setThemeMenu");
+
+			
+			oThemesCollection.forEach(function (oTheme) {
+				var oMenuItem = new sap.m.MenuItem({
+					text: oTheme.Name,
+					key: oTheme.ThemeId
+				});
+
+				oSetThemeMenu.addItem(oMenuItem);
+				
+			});
+			
+		});
+
 		_setTheme(oContext);
 
 
@@ -109,8 +126,8 @@ sap.ui.define([
 			_loadComponents(this);
 		},
 
-		/* Function that will be called on Start Button Press */
-		onStartBtn: function () {
+		/* Function that will be called on Dashboard Button Press */
+		onDashboardBtn: function () {
 			//window.open("https://shorturl.at/tILT5", "_blank");
 			var oRouter = this.getOwnerComponent().getRouter();
 			oRouter.navTo("toDashboard");
