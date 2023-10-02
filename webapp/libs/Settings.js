@@ -16,12 +16,18 @@ sap.ui.define([], function () {
         /* Get info of App from Manifest */
         onVersionInfo: function (oEvent) {
             console.log(oEvent);
-            var oManifest = sap.ui.core.Component.getOwnerComponentFor(oEvent.getSource()).getManifest();
+            var oManifest = sap.ui.core.Component.getOwnerComponentFor(oEvent.getSource()).getManifest(),
+                sVersionInfo = "";
 
-            var appVersion = oManifest["sap.app"].applicationVersion.version;
-            var versionInfo = "App Version" + "\t" + appVersion;
+            var sAppVersion = oManifest["sap.app"].applicationVersion.version;
+            sVersionInfo = "App Version:" + "\t" + sAppVersion;
 
-            sap.m.MessageBox.information(versionInfo, {
+            sVersionInfo += "\n\n"
+            
+            var sMinUI5Version = oManifest["sap.ui5"].dependencies.minUI5Version;
+            sVersionInfo += "UI5 Version:" + "\t" + sMinUI5Version;
+
+            sap.m.MessageBox.information(sVersionInfo, {
                 styleClass: "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer"
             });
         }
