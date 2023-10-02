@@ -95,7 +95,7 @@ sap.ui.define([
 	function _loadComponents(oContext) {
 
 		// Set content density
-		this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
+		oContext.getView().addStyleClass(oContext.getOwnerComponent().getContentDensityClass());
 
 		// Set LOADING Bar and components visibility
 		_hideLoadingBar(oContext);
