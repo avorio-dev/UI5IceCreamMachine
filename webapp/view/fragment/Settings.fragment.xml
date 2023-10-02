@@ -1,0 +1,35 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <MenuButton
+        id="settingsMenu"
+        icon="sap-icon://action-settings"
+        text="{i18n>settingsMenu}"
+    >
+        <menu>
+            <Menu>
+                <MenuItem
+                    icon="sap-icon://palette"
+                    text="{i18n>setThemeItemMenu}"
+                    items="{
+                            path: 'themes>/themesCollection',
+                            sorter: { path: 'Name' }
+                        }"
+                >
+                    <MenuItem
+                        key="{themes>themeId}"
+                        text="{themes>name}"
+                        press=".onSetTheme"
+                    />
+                </MenuItem>
+
+                <MenuItem
+                    press=".onVersionInfo"
+                    text="{i18n>getInfoItemMenu}"
+                    icon="sap-icon://display"
+                />
+            </Menu>
+        </menu>
+    </MenuButton>
+</core:FragmentDefinition>

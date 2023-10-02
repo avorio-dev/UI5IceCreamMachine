@@ -62,11 +62,9 @@
 					"bundleName": "UI5IceCreamMachine.i18n.i18n"
 				}
 			},
-			"themes":{
+			"themes": {
 				"type": "sap.ui.model.json.JSONModel",
-				"settings": {
-
-				},
+				"settings": {},
 				"uri": "res/themes.json"
 			}
 		},

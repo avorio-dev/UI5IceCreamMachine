@@ -1,9 +1,10 @@
 sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
-	"UI5IceCreamMachine/model/models"
-	
-], function (UIComponent, Device, models) {
+	"UI5IceCreamMachine/model/models",
+	"sap/ui/model/json/JSONModel"
+
+], function (UIComponent, Device, models, JSONModel) {
 	"use strict";
 
 	return UIComponent.extend("UI5IceCreamMachine.Component", {
@@ -18,6 +19,22 @@ sap.ui.define([
 		 * @override
 		 */
 		init: function () {
+
+			// Set Model with namespaces
+			var oNamespaceModel = new JSONModel({
+				path_root: "UI5IceCreamMachine",
+				path_fragment: "UI5IceCreamMachine.view.fragment"
+			});
+			this.setModel(oNamespaceModel, "namespace");
+
+			// Set Default Theme
+			var oModelThemes = this.getModel("themes");
+			oModelThemes.attachRequestCompleted(function () {
+				var sDefaultThemeId = oModelThemes.getData().defaultTheme;
+				sap.ui.getCore().applyTheme(sDefaultThemeId);
+			});
+
+
 			// call the base component's init function
 			UIComponent.prototype.init.apply(this, arguments);
 
@@ -26,13 +43,6 @@ sap.ui.define([
 
 			// create the views based on the url/hash
 			this.getRouter().initialize();
-
-			// Set Default Theme
-			var oModelThemes = this.getModel("themes");
-			oModelThemes.attachRequestCompleted(function () {
-				var sDefaultThemeId = oModelThemes.getData().defaultTheme;
-				sap.ui.getCore().applyTheme(sDefaultThemeId);
-			});
 
 		},
 

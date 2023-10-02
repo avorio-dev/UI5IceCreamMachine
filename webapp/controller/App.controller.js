@@ -1,9 +1,10 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/m/MessageBox",
-	"sap/ui/core/Component"
+	"sap/ui/core/Component",
+	"../libs/Settings"
 
-], function (Controller, MessageBox, Component) {
+], function (Controller, MessageBox, Component, Settings) {
 	"use strict";
 
 	// Globals
@@ -50,6 +51,21 @@ sap.ui.define([
 			var oDashboardButton = oContext.getView().byId("dashboardBtn");
 
 			oDashboardButton.setVisible(true);
+
+			// Load Settings Fragment 
+			var sFragmentPath = oContext.getOwnerComponent().getModel("namespace").getProperty("/path_fragment") + ".Settings";
+			if (!oContext.pFragment) {
+				// Carica il fragment in modo asincrono
+				oContext.pFragment = oContext.loadFragment({
+					name: sFragmentPath
+				});
+			}
+
+			oContext.pFragment.then(function (oFragment) {
+				// Aggiungi il fragment al Toolbar
+				var oToolbar = oContext.getView().byId("toolbar");
+				oToolbar.addContent(oFragment);
+			}.bind(oContext));
 		}
 	}
 
@@ -71,35 +87,22 @@ sap.ui.define([
 		} else {
 			setTimeout(_hideLoadingBar, 200, oContext);
 			setTimeout(_showComponent, 200, oContext);
+
 		}
-	}
-
-	/* Theme Switch Function */
-	function _setTheme(oEvent) {
-		// Trigger from menu selection
-		var oSelectedItem = oEvent.getSource();
-		var sSelectedThemeId = oSelectedItem.getKey();
-		sap.ui.getCore().applyTheme(sSelectedThemeId);
-	}
-
-	function _onVersionInfo(oEvent) {
-		var oManifest = Component.getOwnerComponentFor(this.getView()).getManifest();
-		var appVersion = oManifest["sap.app"].applicationVersion.version;
-		var versionInfo = "App Version" + "\t" + appVersion;
-
-		MessageBox.information(versionInfo, {
-			styleClass: "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer"
-		});
 	}
 
 	/* Load all components of the View */
 	function _loadComponents(oContext) {
+
+		// Set content density
+		this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
 
 		// Set LOADING Bar and components visibility
 		_hideLoadingBar(oContext);
 		_hideComponent(oContext);
 		setTimeout(_showLoadingBar, 1000, oContext);
 		setTimeout(_fillLoadingBar, 1500, oContext);
+
 	}
 
 	/* -------------------------------------------------------------------------*/
@@ -108,7 +111,6 @@ sap.ui.define([
 
 		/* Initialize all components on first call of the page */
 		onInit: function () {
-			this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
 			_loadComponents(this);
 		},
 
@@ -120,12 +122,11 @@ sap.ui.define([
 		},
 
 		onSetTheme: function (oEvent) {
-			_setTheme(oEvent);
+			Settings.setTheme(oEvent);
 		},
 
 		onVersionInfo: function (oEvent) {
-			// Call with Context binding
-			_onVersionInfo.call(this, oEvent);
+			Settings.onVersionInfo(oEvent);
 		}
 
 	});
