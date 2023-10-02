@@ -1,10 +1,9 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
-	'sap/ui/model/json/JSONModel',
-	"sap/m/MenuItem",
-  	"sap/m/Menu"
+	"sap/m/MessageBox",
+	"sap/ui/core/Component"
 
-], function (Controller, JSONModel, MenuItem, Menu) {
+], function (Controller, MessageBox, Component) {
 	"use strict";
 
 	// Globals
@@ -55,7 +54,8 @@ sap.ui.define([
 	}
 
 	/* 
-		Animation of Loading Bar, at the end, all components will be print on the screen
+		Start Animation of Loading Bar, 
+		at the end, all components will be print on the screen
 	*/
 	function _fillLoadingBar(oContext) {
 
@@ -75,40 +75,31 @@ sap.ui.define([
 	}
 
 	/* Theme Switch Function */
-	function _setTheme(oContext) {
-		var oThemeSelect = oContext.getView().byId("themeSelect");
-		var selectedKeyTheme = oThemeSelect.getSelectedKey();
+	function _setTheme(oContext, oEvent) {
 
-		sap.ui.getCore().applyTheme(selectedKeyTheme);
+		if (oEvent) {
+			// Trigger from menu selection
+			var oSelectedItem = oEvent.getSource();
+			var sSelectedThemeId = oSelectedItem.getKey();
+			sap.ui.getCore().applyTheme(sSelectedThemeId);
+
+		} else {
+			// Default set
+			var oModelThemes = oContext.getOwnerComponent().getModel("themes");
+
+			oModelThemes.attachRequestCompleted(function () {
+				var sDefaultThemeId = oModelThemes.getData().DefaultTheme;
+				sap.ui.getCore().applyTheme(sDefaultThemeId);
+			});
+
+		}
 	}
 
 	/* Load all components of the View */
 	function _loadComponents(oContext) {
 
 		// Set THEMES Selector
-		var oModelThemes = oContext.getOwnerComponent().getModel("themes");
-		oContext.getView().setModel(oModelThemes, "modelThemes");
-
-		oModelThemes.attachRequestCompleted(function () {
-
-			var oThemesCollection = oModelThemes.getProperty("/ThemesCollection");
-			var oSetThemeMenu = oContext.getView().byId("setThemeMenu");
-
-			
-			oThemesCollection.forEach(function (oTheme) {
-				var oMenuItem = new sap.m.MenuItem({
-					text: oTheme.Name,
-					key: oTheme.ThemeId
-				});
-
-				oSetThemeMenu.addItem(oMenuItem);
-				
-			});
-			
-		});
-
-		_setTheme(oContext);
-
+		_setTheme(oContext, null);
 
 		// Set LOADING Bar and components visibility
 		_hideLoadingBar(oContext);
@@ -133,8 +124,18 @@ sap.ui.define([
 			oRouter.navTo("toDashboard");
 		},
 
-		onSelectTheme: function () {
-			_setTheme(this);
+		onSetTheme: function (oEvent) {
+			_setTheme(this, oEvent);
+		},
+
+		onVersionInfo: function() {
+			var oManifest = Component.getOwnerComponentFor(this.getView()).getManifest();
+			var appVersion = oManifest["sap.app"].applicationVersion.version;
+			var versionInfo = "App Version" + "\t" + appVersion;
+			
+			MessageBox.information(versionInfo, {
+				styleClass: "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer"
+			});
 		}
 
 	});

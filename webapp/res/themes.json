@@ -1,5 +1,5 @@
 { 
-    "SelectedTheme": "sap_horizon_dark",
+    "DefaultTheme": "sap_horizon_dark",
     "ThemesCollection": [
       {
         "ThemeId": "sap_horizon",

@@ -14,32 +14,29 @@
             <Toolbar>
                 <ToolbarSpacer />
                 <MenuButton
-                    text="{i18n>settingsMenu}"
-                    icon="sap-icon://action-settings"
                     id="settingsMenu"
-                    useDefaultActionOnly="true"
+                    icon="sap-icon://action-settings"
+                    text="{i18n>settingsMenu}"
                 >
                     <menu>
-                        <Menu itemSelected=".onMenuAction">
+                        <Menu>
                             <MenuItem
-                                text="{i18n>setThemeItemMenu}"
                                 icon="sap-icon://palette"
-                                id="setThemeMenu"
+                                text="{i18n>setThemeItemMenu}"
+                                items="{
+                                    path: 'themes>/ThemesCollection',
+                                    sorter: { path: 'Name' }
+                                }"
                             >
-                                <!-- 
-                                <items>
-                                    
-                                    <MenuItem
-                                        text="{themesCollection>Name}"
-                                        key="{themesCollection>ThemeId}"
-                                    />
-                                    
-                                    <MenuItem text="testo" key="chiave"></MenuItem>
-                                </items>
-                                -->
+                                <MenuItem
+                                    key="{themes>ThemeId}"
+                                    text="{themes>Name}"
+                                    press=".onSetTheme"
+                                />
                             </MenuItem>
 
                             <MenuItem
+                                press=".onVersionInfo"
                                 text="{i18n>getInfoItemMenu}"
                                 icon="sap-icon://display"
                             />
@@ -47,29 +44,6 @@
                     </menu>
                 </MenuButton>
             </Toolbar>
-            <FlexBox
-                items=""
-                justifyContent="End"
-                wrap="Wrap"
-                class="sapUiTinyMarginTop"
-            >
-                <Select
-                    id="themeSelect"
-                    forceSelection="false"
-                    valueState="None"
-                    selectedKey="{modelThemes>/SelectedTheme}"
-                    change=".onSelectTheme"
-                    items="{
-						path: 'modelThemes>/ThemesCollection',
-						sorter: { path: 'Name' }
-					}"
-                >
-                    <core:Item
-                        key="{modelThemes>ThemeId}"
-                        text="{modelThemes>Name}"
-                    />
-                </Select>
-            </FlexBox>
 
             <Panel
                 headerText=""
