@@ -75,31 +75,25 @@ sap.ui.define([
 	}
 
 	/* Theme Switch Function */
-	function _setTheme(oContext, oEvent) {
+	function _setTheme(oEvent) {
+		// Trigger from menu selection
+		var oSelectedItem = oEvent.getSource();
+		var sSelectedThemeId = oSelectedItem.getKey();
+		sap.ui.getCore().applyTheme(sSelectedThemeId);
+	}
 
-		if (oEvent) {
-			// Trigger from menu selection
-			var oSelectedItem = oEvent.getSource();
-			var sSelectedThemeId = oSelectedItem.getKey();
-			sap.ui.getCore().applyTheme(sSelectedThemeId);
+	function _onVersionInfo(oEvent) {
+		var oManifest = Component.getOwnerComponentFor(this.getView()).getManifest();
+		var appVersion = oManifest["sap.app"].applicationVersion.version;
+		var versionInfo = "App Version" + "\t" + appVersion;
 
-		} else {
-			// Default set
-			var oModelThemes = oContext.getOwnerComponent().getModel("themes");
-
-			oModelThemes.attachRequestCompleted(function () {
-				var sDefaultThemeId = oModelThemes.getData().DefaultTheme;
-				sap.ui.getCore().applyTheme(sDefaultThemeId);
-			});
-
-		}
+		MessageBox.information(versionInfo, {
+			styleClass: "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer"
+		});
 	}
 
 	/* Load all components of the View */
 	function _loadComponents(oContext) {
-
-		// Set THEMES Selector
-		_setTheme(oContext, null);
 
 		// Set LOADING Bar and components visibility
 		_hideLoadingBar(oContext);
@@ -114,6 +108,7 @@ sap.ui.define([
 
 		/* Initialize all components on first call of the page */
 		onInit: function () {
+			this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
 			_loadComponents(this);
 		},
 
@@ -125,17 +120,12 @@ sap.ui.define([
 		},
 
 		onSetTheme: function (oEvent) {
-			_setTheme(this, oEvent);
+			_setTheme(oEvent);
 		},
 
-		onVersionInfo: function() {
-			var oManifest = Component.getOwnerComponentFor(this.getView()).getManifest();
-			var appVersion = oManifest["sap.app"].applicationVersion.version;
-			var versionInfo = "App Version" + "\t" + appVersion;
-			
-			MessageBox.information(versionInfo, {
-				styleClass: "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer"
-			});
+		onVersionInfo: function (oEvent) {
+			// Call with Context binding
+			_onVersionInfo.call(this, oEvent);
 		}
 
 	});

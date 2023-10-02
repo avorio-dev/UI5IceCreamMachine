@@ -24,13 +24,13 @@
                                 icon="sap-icon://palette"
                                 text="{i18n>setThemeItemMenu}"
                                 items="{
-                                    path: 'themes>/ThemesCollection',
+                                    path: 'themes>/themesCollection',
                                     sorter: { path: 'Name' }
                                 }"
                             >
                                 <MenuItem
-                                    key="{themes>ThemeId}"
-                                    text="{themes>Name}"
+                                    key="{themes>themeId}"
+                                    text="{themes>name}"
                                     press=".onSetTheme"
                                 />
                             </MenuItem>

@@ -1,34 +1,33 @@
-{ 
-    "DefaultTheme": "sap_horizon_dark",
-    "ThemesCollection": [
-      {
-        "ThemeId": "sap_horizon",
-        "Name": "Morning Horizon"
-      },
-      {
-        "ThemeId": "sap_horizon_dark",
-        "Name": "Evening Horizon"
-      },
-      {
-        "ThemeId": "sap_belize",
-        "Name": "Belize"
-      },
-      {
-        "ThemeId": "sap_belize_plus",
-        "Name": "Belize Plus"
-      },
-      {
-        "ThemeId": "sap_bluecrystal",
-        "Name": "SAP Blue Crystal"
-      },
-      {
-        "ThemeId": "sap_fiori_3",
-        "Name": "Quartz Light"
-      },
-      {
-        "ThemeId": "sap_fiori_3_dark",
-        "Name": "Quartz Dark"
-      }
-    ]
-  }
-  
+{
+  "defaultTheme": "sap_horizon_dark",
+  "themesCollection": [
+    {
+      "themeId": "sap_horizon",
+      "name": "Morning Horizon"
+    },
+    {
+      "themeId": "sap_horizon_dark",
+      "name": "Evening Horizon"
+    },
+    {
+      "themeId": "sap_belize",
+      "name": "Belize"
+    },
+    {
+      "themeId": "sap_belize_plus",
+      "name": "Belize Plus"
+    },
+    {
+      "themeId": "sap_bluecrystal",
+      "name": "SAP Blue Crystal"
+    },
+    {
+      "themeId": "sap_fiori_3",
+      "name": "Quartz Light"
+    },
+    {
+      "themeId": "sap_fiori_3_dark",
+      "name": "Quartz Dark"
+    }
+  ]
+}
