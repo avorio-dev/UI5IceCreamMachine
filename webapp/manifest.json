@@ -66,6 +66,11 @@
 				"type": "sap.ui.model.json.JSONModel",
 				"settings": {},
 				"uri": "res/themes.json"
+			},
+			"feeds":{
+				"type": "sap.ui.model.xml.XMLModel",
+				"settings": {},
+				"uri": "res/feeds.xml"
 			}
 		},
 		"routing": {
