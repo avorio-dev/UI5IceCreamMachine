@@ -112,6 +112,16 @@
                 </tileContent>
             </GenericTile>
             <SlideTile
+                id="slideTileId"
+                width="100%"
+                class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+            >
+                <!-- Loaded from XML Model -->
+                
+            </SlideTile>
+
+            <!-- 
+            <SlideTile
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop"
                 tiles="{news>/News}"
             >
@@ -137,6 +147,7 @@
                     </tileContent>
                 </GenericTile>
             </SlideTile>
+            -->
         </layout:HorizontalLayout>
     </Page>
 </mvc:View>

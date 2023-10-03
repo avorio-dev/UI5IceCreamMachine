@@ -15,17 +15,47 @@ sap.ui.define([
             //var oModel = new JSONModel(sDataPath);
 
 
+            /*
             var sRssLink = "https://www.ansa.it/sito/ansait_rss.xml";
             var oXmlModel = new XMLModel();
 
             oXmlModel.loadData(sRssLink);
             this.getView().setModel(oXmlModel, "feeds");
+            */
 
-
+            /* 
             var sDataPath = sap.ui.require.toUrl("sap/suite/ui/commons/demokit/tutorial/icecream/03/model/data") + "/News.json";
-            var oModel = new JSONModel(sDataPath);
-            this.getView().setModel(oModel, "news");
+            var oNewsModel = new JSONModel(sDataPath);
+            this.getView().setModel(oNewsModel, "news");
+            */
 
+            // Assume che il tuo modello sia già caricato con i dati
+            var oSlideTile = this.getView().byId("slideTileId");
+            var oFeedsModel = this.getOwnerComponent().getModel("feeds");
+
+            var aItems = oFeedsModel.getData().getElementsByTagName("item");
+            Array.from(aItems).forEach(function (oItem) {
+
+                var link = oItem.getElementsByTagName("link")[0].textContent;
+
+                var oGenericTile = new sap.m.GenericTile({
+                    header: oItem.getElementsByTagName("title")[0].textContent,
+                    subheader: oItem.getElementsByTagName("description")[0].textContent,
+                    info: oItem.getElementsByTagName("pubDate")[0].textContent,
+
+                    press: function () {
+                        //window.open("https://shorturl.at/tILT5", "_blank");
+                        window.open(link, "_blank");
+                    }
+                });
+
+                var oTileContent = new sap.m.TileContent({
+                    footer: new sap.m.Link({ text: "Leggi di più", href: link })
+                });
+
+                oGenericTile.addTileContent(oTileContent);
+                oSlideTile.addTile(oGenericTile);
+            });
         },
 
         getProgress: function (aNodes) {
