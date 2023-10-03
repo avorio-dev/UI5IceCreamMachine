@@ -12,7 +12,7 @@
         <layout:HorizontalLayout allowWrapping="true">
             <GenericTile
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop"
-                header="{feeds>rss>channel>news>title}"
+                header="{i18n>ProcessTitle}"
                 subheader="{i18n>ProcessSubTile}"
             >
                 <tileContent>
@@ -113,7 +113,7 @@
             </GenericTile>
             <SlideTile
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop"
-                tiles="{feeds>/rss/Channel/News/Title}"
+                tiles="{news>/News}"
             >
                 <GenericTile
                     backgroundImage="{news>image}"
@@ -123,14 +123,14 @@
                     <tileContent>
                         <TileContent
                             footer="{
-                                    path: 'feeds>channel',
+                                    path: 'news>date',
                                     formatter: '.formatJSONDate'
                                 }"
                         >
                             <content>
                                 <NewsContent
-                                    contentText="{feeds>item}"
-                                    subheader="{feeds>subheader}"
+                                    contentText="{news>content}"
+                                    subheader="{news>subheader}"
                                 />
                             </content>
                         </TileContent>

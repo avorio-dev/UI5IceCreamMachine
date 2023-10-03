@@ -14,16 +14,17 @@ sap.ui.define([
             //var sDataPath = sap.ui.require.toUrl("sap/suite/ui/commons/demokit/tutorial/icecream/03/model/data") + "/News.json";
             //var oModel = new JSONModel(sDataPath);
 
-            /* ops
+
             var sRssLink = "https://www.ansa.it/sito/ansait_rss.xml";
             var oXmlModel = new XMLModel();
 
             oXmlModel.loadData(sRssLink);
-            this.getView().setModel(oXmlModel, "news");
-            */
+            this.getView().setModel(oXmlModel, "feeds");
 
-            var oModel = this.getOwnerComponent().getModel("feeds");
-            console.log(oModel.getData());
+
+            var sDataPath = sap.ui.require.toUrl("sap/suite/ui/commons/demokit/tutorial/icecream/03/model/data") + "/News.json";
+            var oModel = new JSONModel(sDataPath);
+            this.getView().setModel(oModel, "news");
 
         },
 
