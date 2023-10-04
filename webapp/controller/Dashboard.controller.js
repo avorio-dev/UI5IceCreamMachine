@@ -6,6 +6,7 @@ sap.ui.define([
 ], function (Controller, JSONModel, XMLModel) {
     "use strict";
 
+
     /* Fill Tile with data loaded from XML Model */
     function _initXMLTile(oContext) {
 
@@ -29,7 +30,7 @@ sap.ui.define([
             var oGenericTile = new sap.m.GenericTile({
                 header: oItem.getElementsByTagName("title")[0].textContent,
                 subheader: oItem.getElementsByTagName("description")[0].textContent,
-                
+
                 press: function () {
                     //window.open("https://shorturl.at/tILT5", "_blank");
                     var link = oItem.getElementsByTagName("link")[0].textContent;
@@ -83,7 +84,6 @@ sap.ui.define([
             this.getView().setModel(oNewsModel, "news");
             */
 
-
         },
 
         getProgress: function (aNodes) {
@@ -117,6 +117,13 @@ sap.ui.define([
 
         formatMessage: function () {
 
+        },
+
+        onFeedOpen: function (oEvent) {
+            //window.open("https://shorturl.at/tILT5", "_blank");
+            var oSource = oEvent.getSource();
+            var sLink = oSource.getBindingContext("feedsXmlToJson").getProperty("link");
+            window.open(sLink, "_blank");
         }
     });
 });

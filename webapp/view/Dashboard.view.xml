@@ -138,11 +138,11 @@
                 tiles="{feedsXmlToJson>/tiles}"
             >
                 <GenericTile
-                    header="{title}"
-                    subheader="{description}"
-                    press="handleTilePress"
+                    header="{feedsXmlToJson>title}"
+                    subheader="{feedsXmlToJson>description}"
+                    press=".onFeedOpen"
                 >
-                    <TileContent footer="{pubDate}">
+                    <TileContent footer="{feedsXmlToJson>pubDate}">
                         <content>
                             <!-- Loaded from JSON Model con -->
                         </content>
