@@ -10,6 +10,7 @@
 >
     <Page title="{i18n>dashboardTitle}">
         <layout:HorizontalLayout allowWrapping="true">
+            <!-- Simple Tile with Process Progress -->
             <GenericTile
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop"
                 header="{i18n>ProcessTitle}"
@@ -30,6 +31,8 @@
                     </TileContent>
                 </tileContent>
             </GenericTile>
+
+            <!-- Simple Tile with Counter -->
             <GenericTile
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop"
                 header="{i18n>CounterTile}"
@@ -50,6 +53,8 @@
                     </TileContent>
                 </tileContent>
             </GenericTile>
+
+            <!-- Simple Tile with Micr Chart-->
             <GenericTile
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop"
                 header="{
@@ -98,6 +103,8 @@
                     </TileContent>
                 </tileContent>
             </GenericTile>
+
+            <!-- Simple Til With Icon -->
             <GenericTile
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop"
                 header="{i18n>TemperatureTile}"
@@ -111,16 +118,39 @@
                     </TileContent>
                 </tileContent>
             </GenericTile>
+
+            <!-- Slide Tile loaded from XML Model -->
             <SlideTile
-                id="slideTileId"
-                width="100%"
+                id="slideTileXml"
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+                sizeBehavior="Responsive"
+                width="50%"
             >
                 <!-- Loaded from XML Model -->
-                
             </SlideTile>
 
-            <!-- 
+            <!-- Slide Tile loaded from XML Model converted in JSON Model -->
+            <SlideTile
+                id="slideTileXmlToJson"
+                class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+                sizeBehavior="Responsive"
+                width="50%"
+                tiles="{feedsXmlToJson>/tiles}"
+            >
+                <GenericTile
+                    header="{title}"
+                    subheader="{description}"
+                    press="handleTilePress"
+                >
+                    <TileContent footer="{pubDate}">
+                        <content>
+                            <!-- Loaded from JSON Model con -->
+                        </content>
+                    </TileContent>
+                </GenericTile>
+            </SlideTile>
+
+            <!-- Slide Tile loaded from JSON Model -->
             <SlideTile
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop"
                 tiles="{news>/News}"
@@ -147,7 +177,6 @@
                     </tileContent>
                 </GenericTile>
             </SlideTile>
-            -->
         </layout:HorizontalLayout>
     </Page>
 </mvc:View>
