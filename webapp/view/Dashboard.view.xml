@@ -104,7 +104,7 @@
                 </tileContent>
             </GenericTile>
 
-            <!-- Simple Til With Icon -->
+            <!-- Simple Tile With Icon -->
             <GenericTile
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop"
                 header="{i18n>TemperatureTile}"
