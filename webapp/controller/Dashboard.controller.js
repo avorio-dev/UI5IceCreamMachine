@@ -1,9 +1,11 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     'sap/ui/model/json/JSONModel',
-    "sap/ui/model/xml/XMLModel"
+    "sap/ui/model/xml/XMLModel",
+    "sap/base/strings/formatMessage",
+    "sap/ui/core/format/NumberFormat"
 
-], function (Controller, JSONModel, XMLModel) {
+], function (Controller, JSONModel, XMLModel, formatMessage, NumberFormat) {
     "use strict";
 
 
@@ -30,7 +32,8 @@ sap.ui.define([
             var oGenericTile = new sap.m.GenericTile({
                 header: oItem.getElementsByTagName("title")[0].textContent,
                 subheader: oItem.getElementsByTagName("description")[0].textContent,
-
+                frameType: "TwoByOne",
+                
                 press: function () {
                     //window.open("https://shorturl.at/tILT5", "_blank");
                     var link = oItem.getElementsByTagName("link")[0].textContent;
@@ -65,7 +68,7 @@ sap.ui.define([
             aTileItems.push(oTileItem);
         });
 
-        var oTileModel = new sap.ui.model.json.JSONModel();
+        var oTileModel = new JSONModel();
         oTileModel.setData({ tiles: aTileItems });
         oSlideTileXmlToJson.setModel(oTileModel, "feedsXmlToJson");
 
@@ -85,6 +88,8 @@ sap.ui.define([
             */
 
         },
+
+        formatMessage: formatMessage,
 
         getProgress: function (aNodes) {
             if (!aNodes || aNodes.length === 0) {
@@ -115,15 +120,37 @@ sap.ui.define([
             return oDate.toLocaleDateString();
         },
 
-        formatMessage: function () {
-
-        },
-
         onFeedOpen: function (oEvent) {
             //window.open("https://shorturl.at/tILT5", "_blank");
             var oSource = oEvent.getSource();
             var sLink = oSource.getBindingContext("feedsXmlToJson").getProperty("link");
             window.open(sLink, "_blank");
+        },
+
+        onRepoZag: function() {
+            var sLink = "https://github.com/avorio-dev/S4ZAG/tree/main";
+            window.open(sLink, "_blank");
+        },
+
+        onRepoZagUI5: function() {
+            var sLink = "https://github.com/avorio-dev/UI5IceCreamMachine";
+            window.open(sLink, "_blank");
+        },
+
+        onNavToProcessFlow: function () {
+            this.getRouter().navTo("processFlow");
+        },
+
+        onNavToChartContainer: function () {
+            this.getRouter().navTo("chartContainer");
+        },
+        
+        onNavToReviews: function () {
+            this.getRouter().navTo("reviews");
+        },
+
+        getRouter: function () {
+            return this.getOwnerComponent().getRouter();
         }
     });
 });
