@@ -1,10 +1,14 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller"
+    "sap/ui/core/mvc/Controller",
+    "../libs/Utils"
 
-], function (Controller) {
+], function (Controller, Utils) {
     "use strict";
 
     return Controller.extend("UI5IceCreamMachine.controller.ChartContainer", {
 
+        onNavBack: function (oEvent) {
+            Utils.onNavBack(this);
+        }
     });
 });

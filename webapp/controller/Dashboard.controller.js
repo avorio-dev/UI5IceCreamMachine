@@ -78,6 +78,10 @@ sap.ui.define([
 
         /* Initialize all components on first call of the page */
         onInit: function () {
+            
+            var oDashboardPage = this.getView().byId("dashboardPage");
+            //oDashboardPage.setNavButtonIcon("sap-icon://home");
+
             _initXMLTile(this);
             _initJSONTile(this);
 
@@ -87,6 +91,10 @@ sap.ui.define([
             this.getView().setModel(oNewsModel, "news");
             */
 
+        },
+
+        onNavBack: function(oEvent) {
+            Utils.onNavBack(this);
         },
 
         formatMessage: formatMessage,
@@ -138,15 +146,15 @@ sap.ui.define([
         },
 
         onNavToProcessFlow: function () {
-            this.getRouter().navTo("processFlow");
+            this.getRouter().navTo("toProcessFlow");
         },
 
         onNavToChartContainer: function () {
-            this.getRouter().navTo("chartContainer");
+            this.getRouter().navTo("toChartContainer");
         },
         
         onNavToReviews: function () {
-            this.getRouter().navTo("reviews");
+            this.getRouter().navTo("toReviews");
         },
 
         getRouter: function () {

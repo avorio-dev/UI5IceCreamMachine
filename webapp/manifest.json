@@ -110,6 +110,21 @@
 					"pattern": "toDashboard",
 					"name": "toDashboard",
 					"target": "dashboard"
+				},
+				{
+					"pattern": "toProcessFlow",
+					"name": "toProcessFlow",
+					"target": "processFlow"
+				},
+				{
+					"pattern": "toChartContainer",
+					"name": "toChartContainer",
+					"target": "chartContainer"
+				},
+				{
+					"pattern": "toReviews",
+					"name": "toReviews",
+					"target": "reviews"
 				}
 			],
 			"targets": {
@@ -121,6 +136,18 @@
 				"dashboard": {
 					"viewId": "dashboard",
 					"viewName": "Dashboard"
+				},
+				"processFlow": {
+					"viewId": "processFlow",
+					"viewName": "ProcessFlow"
+				},
+				"chartContainer": {
+					"viewId": "chartContainer",
+					"viewName": "ChartContainer"
+				},
+				"reviews": {
+					"viewId": "reviews",
+					"viewName": "Reviews"
 				}
 			}
 		},

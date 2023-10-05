@@ -8,7 +8,12 @@
     xmlns:layout="sap.ui.layout"
     xmlns:microchart="sap.suite.ui.microchart"
 >
-    <Page title="{i18n>dashboardTitle}">
+    <Page
+        id="dashboardPage"
+        title="{i18n>dashboardTitle}"
+        showNavButton="true"
+        navButtonPress=".onNavBack"
+    >
         <layout:VerticalLayout class="sapUiResponsiveMargin">
             <Title
                 titleStyle="H2"
@@ -116,6 +121,7 @@
                     class="sapUiTinyMarginBegin sapUiTinyMarginTop"
                     header="{i18n>TemperatureTile}"
                     subheader="{i18n>TemperatureSubTile}"
+                    press=".onNavToChartContainer"
                 >
                     <tileContent>
                         <TileContent>

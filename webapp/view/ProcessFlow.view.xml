@@ -6,5 +6,11 @@
     displayBlock="true"
     xmlns="sap.m"
     xmlns:layout="sap.ui.layout"
-
-></mvc:View>
+>
+    <Page
+        title="{i18n>processFlowTitle}"
+        backgroundDesign="Solid"
+        showNavButton="true"
+        navButtonPress=".onNavBack"
+    />
+</mvc:View>
