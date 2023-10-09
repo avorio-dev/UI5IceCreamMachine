@@ -11,9 +11,10 @@
     <Page
         id="dashboardPage"
         title="{i18n>dashboardTitle}"
-        showNavButton="true"
-        navButtonPress=".onNavBack"
     >
+        <Toolbar id="toolbar">
+            <ToolbarSpacer />
+        </Toolbar>
         <layout:VerticalLayout class="sapUiResponsiveMargin">
             <Title
                 titleStyle="H2"
@@ -132,37 +133,37 @@
                     </tileContent>
                 </GenericTile>
 
-                <!-- Slide Tile loaded from XML Model -->
-                <SlideTile
-                    id="slideTileXml"
-                    class="sapUiTinyMarginBegin sapUiTinyMarginTop"
-                    sizeBehavior="Responsive"
-                    width="50%"
-                >
-                    <!-- Loaded from XML Model -->
-                </SlideTile>
-
-                <!-- Slide Tile loaded from XML Model converted in JSON Model -->
-                <SlideTile
-                    id="slideTileXmlToJson"
-                    class="sapUiTinyMarginBegin sapUiTinyMarginTop"
-                    sizeBehavior="Responsive"
-                    width="50%"
-                    tiles="{feedsXmlToJson>/tiles}"
-                >
-                    <GenericTile
-                        header="{feedsXmlToJson>title}"
-                        subheader="{feedsXmlToJson>description}"
-                        frameType="TwoByOne"
-                        press=".onFeedOpen"
+                <layout:HorizontalLayout>
+                    <!-- Slide Tile loaded from XML Model -->
+                    <SlideTile
+                        id="slideTileXml"
+                        class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+                        sizeBehavior="Responsive"
                     >
-                        <TileContent footer="{feedsXmlToJson>pubDate}">
-                            <content>
-                                <!-- Loaded from JSON Model con -->
-                            </content>
-                        </TileContent>
-                    </GenericTile>
-                </SlideTile>
+                        <!-- Loaded from XML Model -->
+                    </SlideTile>
+
+                    <!-- Slide Tile loaded from XML Model converted in JSON Model -->
+                    <SlideTile
+                        id="slideTileXmlToJson"
+                        class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+                        sizeBehavior="Responsive"
+                        tiles="{feedsXmlToJson>/tiles}"
+                    >
+                        <GenericTile
+                            header="{feedsXmlToJson>title}"
+                            subheader="{feedsXmlToJson>description}"
+                            frameType="TwoByOne"
+                            press=".onFeedOpen"
+                        >
+                            <TileContent footer="{feedsXmlToJson>pubDate}">
+                                <content>
+                                    <!-- Loaded from JSON Model con -->
+                                </content>
+                            </TileContent>
+                        </GenericTile>
+                    </SlideTile>
+                </layout:HorizontalLayout>
             </layout:HorizontalLayout>
 
             <!-- Credit Section -->

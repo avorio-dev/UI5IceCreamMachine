@@ -3,27 +3,26 @@ sap.ui.define([
     'sap/ui/model/json/JSONModel',
     "sap/ui/model/xml/XMLModel",
     "sap/base/strings/formatMessage",
-    "sap/ui/core/format/NumberFormat"
+    "sap/ui/core/format/NumberFormat",
+    "../libs/Settings"
 
-], function (Controller, JSONModel, XMLModel, formatMessage, NumberFormat) {
+], function (Controller, JSONModel, XMLModel, formatMessage, NumberFormat, Settings) {
     "use strict";
 
 
     /* Fill Tile with data loaded from XML Model */
     function _initXMLTile(oContext) {
 
-        //var sDataPath = sap.ui.require.toUrl("sap/suite/ui/commons/demokit/tutorial/icecream/03/model/data") + "/News.json";
-        //var oModel = new JSONModel(sDataPath);
+        var oSlideTileXml = oContext.getView().byId("slideTileXml");
 
-        /*
+        /* 
         var sRssLink = "https://www.ansa.it/sito/ansait_rss.xml";
         var oXmlModel = new XMLModel();
 
         oXmlModel.loadData(sRssLink);
-        this.getView().setModel(oXmlModel, "feeds");
+        oContext.getView().setModel(oXmlModel, "feeds");
         */
 
-        var oSlideTileXml = oContext.getView().byId("slideTileXml");
         var oFeedsModel = oContext.getOwnerComponent().getModel("feeds");
 
         var aItems = oFeedsModel.getData().getElementsByTagName("item");
@@ -33,7 +32,7 @@ sap.ui.define([
                 header: oItem.getElementsByTagName("title")[0].textContent,
                 subheader: oItem.getElementsByTagName("description")[0].textContent,
                 frameType: "TwoByOne",
-                
+
                 press: function () {
                     //window.open("https://shorturl.at/tILT5", "_blank");
                     var link = oItem.getElementsByTagName("link")[0].textContent;
@@ -78,10 +77,11 @@ sap.ui.define([
 
         /* Initialize all components on first call of the page */
         onInit: function () {
-            
+
             var oDashboardPage = this.getView().byId("dashboardPage");
             //oDashboardPage.setNavButtonIcon("sap-icon://home");
 
+            Settings.load_settings(this, "toolbar");
             _initXMLTile(this);
             _initJSONTile(this);
 
@@ -93,11 +93,15 @@ sap.ui.define([
 
         },
 
-        onNavBack: function(oEvent) {
-            Utils.onNavBack(this);
+        formatMessage: formatMessage,
+
+        onSetTheme: function (oEvent) {
+            Settings.setTheme(oEvent);
         },
 
-        formatMessage: formatMessage,
+        onVersionInfo: function (oEvent) {
+            Settings.onVersionInfo(oEvent);
+        },
 
         getProgress: function (aNodes) {
             if (!aNodes || aNodes.length === 0) {
@@ -135,12 +139,12 @@ sap.ui.define([
             window.open(sLink, "_blank");
         },
 
-        onRepoZag: function() {
+        onRepoZag: function () {
             var sLink = "https://github.com/avorio-dev/S4ZAG/tree/main";
             window.open(sLink, "_blank");
         },
 
-        onRepoZagUI5: function() {
+        onRepoZagUI5: function () {
             var sLink = "https://github.com/avorio-dev/UI5IceCreamMachine";
             window.open(sLink, "_blank");
         },
@@ -152,7 +156,7 @@ sap.ui.define([
         onNavToChartContainer: function () {
             this.getRouter().navTo("toChartContainer");
         },
-        
+
         onNavToReviews: function () {
             this.getRouter().navTo("toReviews");
         },
