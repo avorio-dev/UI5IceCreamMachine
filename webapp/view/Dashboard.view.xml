@@ -8,69 +8,71 @@
     xmlns:layout="sap.ui.layout"
     xmlns:microchart="sap.suite.ui.microchart"
 >
-    <Page
-        id="dashboardPage"
-        title="{i18n>dashboardTitle}"
-    >
-        <Toolbar id="toolbar">
-            <ToolbarSpacer />
-        </Toolbar>
-        <layout:VerticalLayout class="sapUiResponsiveMargin">
-            <Title
-                titleStyle="H2"
-                text="{i18n>OverviewTitle}"
-                class="sapUiTinyMarginBegin sapUiMediumMarginTop"
-            />
-            <layout:HorizontalLayout allowWrapping="true">
-                <!-- Simple Tile with Process Progress -->
-                <GenericTile
-                    class="sapUiTinyMarginBegin sapUiTinyMarginTop"
-                    header="{i18n>ProcessTitle}"
-                    subheader="{i18n>ProcessSubTile}"
-                    press=".onNavToProcessFlow"
-                >
-                    <tileContent>
-                        <TileContent>
-                            <content>
-                                <NumericContent
-                                    scale="%"
-                                    value="{
+    <Toolbar id="toolbar"
+    height="auto">
+        <Title
+            text="{i18n>dashboardTitle}"
+            titleStyle="H3"
+            class="sapUiTinyMarginTop sapUiTinyMarginBottom"
+        />
+        <ToolbarSpacer />
+    </Toolbar>
+    <layout:VerticalLayout class="sapUiResponsiveMargin">
+        <Title
+            titleStyle="H4"
+            text="{i18n>OverviewTitle}"
+            class="sapUiTinyMarginBegin sapUiMediumMarginTop"
+        />
+        <layout:HorizontalLayout allowWrapping="true">
+            <!-- Simple Tile with Process Progress -->
+            <GenericTile
+                class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+                header="{i18n>ProcessTitle}"
+                subheader="{i18n>ProcessSubTile}"
+                press=".onNavToProcessFlow"
+            >
+                <tileContent>
+                    <TileContent>
+                        <content>
+                            <NumericContent
+                                scale="%"
+                                value="{
                                     path: 'process>/Nodes',
                                     formatter: '.getProgress'
                                 }"
-                                    icon="sap-icon://factory"
-                                />
-                            </content>
-                        </TileContent>
-                    </tileContent>
-                </GenericTile>
+                                icon="sap-icon://factory"
+                            />
+                        </content>
+                    </TileContent>
+                </tileContent>
+            </GenericTile>
 
-                <!-- Simple Tile with Counter -->
-                <GenericTile
-                    class="sapUiTinyMarginBegin sapUiTinyMarginTop"
-                    header="{i18n>CounterTile}"
-                    subheader="{i18n>CounterSubTile}"
-                >
-                    <tileContent>
-                        <TileContent>
-                            <content>
-                                <NumericContent
-                                    value="{
+            <!-- Simple Tile with Counter -->
+            <GenericTile
+                class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+                header="{i18n>CounterTile}"
+                subheader="{i18n>CounterSubTile}"
+            >
+                <tileContent>
+                    <TileContent>
+                        <content>
+                            <NumericContent
+                                value="{
                                     path: 'reviews>/UserReviews',
                                     formatter: '.getEntityCount'
                                 }"
-                                    indicator="None"
-                                    valueColor="Neutral"
-                                />
-                            </content>
-                        </TileContent>
-                    </tileContent>
-                </GenericTile>
+                                indicator="None"
+                                valueColor="Neutral"
+                            />
+                        </content>
+                    </TileContent>
+                </tileContent>
+            </GenericTile>
 
-                <!-- Simple Tile with Micro Chart-->
-                <GenericTile
-                    class="sapUiTinyMarginBegin sapUiTinyMarginTop"
-                    header="{
+            <!-- Simple Tile with Micro Chart-->
+            <GenericTile
+                class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+                header="{
                         parts: [
                             'i18n>MicroChartTile',
                             'business>/year',
@@ -78,116 +80,115 @@
                         ],
                         formatter: '.formatMessage'
                     }"
-                >
-                    <tileContent>
-                        <TileContent>
-                            <content>
-                                <microchart:BulletMicroChart
-                                    size="Responsive"
-                                    targetValue="{business>/plannedExpenses}"
-                                    targetValueLabel="{
+            >
+                <tileContent>
+                    <TileContent>
+                        <content>
+                            <microchart:BulletMicroChart
+                                size="Responsive"
+                                targetValue="{business>/plannedExpenses}"
+                                targetValueLabel="{
                                         path: 'business>/plannedExpenses',
                                         formatter: '.formatNumber'
                                     }"
-                                    actualValueLabel="{
+                                actualValueLabel="{
                                         path: 'business>/expenses',
                                         formatter: '.formatNumber'
                                     }"
-                                    minValue="0"
-                                >
-                                    <microchart:actual>
-                                        <microchart:BulletMicroChartData
-                                            value="{business>/expenses}"
-                                            color="Critical"
-                                        />
-                                    </microchart:actual>
-                                    <microchart:thresholds>
-                                        <microchart:BulletMicroChartData
-                                            value="{business>/expensesCritical}"
-                                            color="Critical"
-                                        />
-                                        <microchart:BulletMicroChartData
-                                            value="{business>/budget}"
-                                            color="Error"
-                                        />
-                                    </microchart:thresholds>
-                                </microchart:BulletMicroChart>
-                            </content>
-                        </TileContent>
-                    </tileContent>
-                </GenericTile>
+                                minValue="0"
+                            >
+                                <microchart:actual>
+                                    <microchart:BulletMicroChartData
+                                        value="{business>/expenses}"
+                                        color="Critical"
+                                    />
+                                </microchart:actual>
+                                <microchart:thresholds>
+                                    <microchart:BulletMicroChartData
+                                        value="{business>/expensesCritical}"
+                                        color="Critical"
+                                    />
+                                    <microchart:BulletMicroChartData
+                                        value="{business>/budget}"
+                                        color="Error"
+                                    />
+                                </microchart:thresholds>
+                            </microchart:BulletMicroChart>
+                        </content>
+                    </TileContent>
+                </tileContent>
+            </GenericTile>
 
-                <!-- Simple Tile With Icon -->
-                <GenericTile
+            <!-- Simple Tile With Icon -->
+            <GenericTile
+                class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+                header="{i18n>TemperatureTile}"
+                subheader="{i18n>TemperatureSubTile}"
+                press=".onNavToChartContainer"
+            >
+                <tileContent>
+                    <TileContent>
+                        <content>
+                            <ImageContent src="sap-icon://temperature" />
+                        </content>
+                    </TileContent>
+                </tileContent>
+            </GenericTile>
+
+            <layout:HorizontalLayout>
+                <!-- Slide Tile loaded from XML Model -->
+                <SlideTile
+                    id="slideTileXml"
                     class="sapUiTinyMarginBegin sapUiTinyMarginTop"
-                    header="{i18n>TemperatureTile}"
-                    subheader="{i18n>TemperatureSubTile}"
-                    press=".onNavToChartContainer"
+                    sizeBehavior="Responsive"
                 >
-                    <tileContent>
-                        <TileContent>
+                    <!-- Loaded from XML Model -->
+                </SlideTile>
+
+                <!-- Slide Tile loaded from XML Model converted in JSON Model -->
+                <SlideTile
+                    id="slideTileXmlToJson"
+                    class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+                    sizeBehavior="Responsive"
+                    tiles="{feedsXmlToJson>/tiles}"
+                >
+                    <GenericTile
+                        header="{feedsXmlToJson>title}"
+                        subheader="{feedsXmlToJson>description}"
+                        frameType="TwoByOne"
+                        press=".onFeedOpen"
+                    >
+                        <TileContent footer="{feedsXmlToJson>pubDate}">
                             <content>
-                                <ImageContent src="sap-icon://temperature" />
+                                <!-- Loaded from JSON Model con -->
                             </content>
                         </TileContent>
-                    </tileContent>
-                </GenericTile>
-
-                <layout:HorizontalLayout>
-                    <!-- Slide Tile loaded from XML Model -->
-                    <SlideTile
-                        id="slideTileXml"
-                        class="sapUiTinyMarginBegin sapUiTinyMarginTop"
-                        sizeBehavior="Responsive"
-                    >
-                        <!-- Loaded from XML Model -->
-                    </SlideTile>
-
-                    <!-- Slide Tile loaded from XML Model converted in JSON Model -->
-                    <SlideTile
-                        id="slideTileXmlToJson"
-                        class="sapUiTinyMarginBegin sapUiTinyMarginTop"
-                        sizeBehavior="Responsive"
-                        tiles="{feedsXmlToJson>/tiles}"
-                    >
-                        <GenericTile
-                            header="{feedsXmlToJson>title}"
-                            subheader="{feedsXmlToJson>description}"
-                            frameType="TwoByOne"
-                            press=".onFeedOpen"
-                        >
-                            <TileContent footer="{feedsXmlToJson>pubDate}">
-                                <content>
-                                    <!-- Loaded from JSON Model con -->
-                                </content>
-                            </TileContent>
-                        </GenericTile>
-                    </SlideTile>
-                </layout:HorizontalLayout>
+                    </GenericTile>
+                </SlideTile>
             </layout:HorizontalLayout>
+        </layout:HorizontalLayout>
 
-            <!-- Credit Section -->
-            <Title
-                titleStyle="H2"
-                text="{i18n>CreditTitle}"
-                class="sapUiTinyMarginBegin sapUiMediumMarginTop"
+        <!-- Credit Section -->
+        <Title
+            titleStyle="H4"
+            text="{i18n>CreditTitle}"
+            class="sapUiTinyMarginBegin sapUiMediumMarginTop"
+        />
+        <layout:HorizontalLayout allowWrapping="true">
+            <GenericTile
+                header="{i18n>RepoZag}"
+                subheader="{i18n>RepoZagDescr}"
+                mode="LineMode"
+                class="sapUiTinyMarginBegin"
+                press=".onRepoZag"
             />
-            <layout:HorizontalLayout allowWrapping="true">
-                <GenericTile
-                    header="{i18n>RepoZag}"
-                    subheader="{i18n>RepoZagDescr}"
-                    mode="LineMode"
-                    class="sapUiTinyMarginBegin"
-                    press=".onRepoZag"
-                />
-                <GenericTile
-                    header="{i18n>RepoZagUI5}"
-                    subheader="{i18n>RepoZagUI5Descr}"
-                    mode="LineMode"
-                    class="sapUiTinyMarginBegin"
-                    press=".onRepoZagUI5"
-                />
-            </layout:HorizontalLayout>
-        </layout:VerticalLayout>
-    </Page>
+            <GenericTile
+                header="{i18n>RepoZagUI5}"
+                subheader="{i18n>RepoZagUI5Descr}"
+                mode="LineMode"
+                class="sapUiTinyMarginBegin"
+                press=".onRepoZagUI5"
+            />
+        </layout:HorizontalLayout>
+    </layout:VerticalLayout>
 </mvc:View>
