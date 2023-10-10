@@ -6,6 +6,7 @@
     displayBlock="true"
     xmlns="sap.m"
     xmlns:layout="sap.ui.layout"
+    xmlns:suite="sap.suite.ui.commons"
 >
     <Page
         title="{i18n>chartContainerTitle}"
