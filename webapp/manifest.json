@@ -65,28 +65,28 @@
 			"themes": {
 				"type": "sap.ui.model.json.JSONModel",
 				"settings": {},
-				"uri": "model/data/themes.json"
+				"uri": "model/dummy_data/themes.json"
 			},
 			"process": {
 				"type": "sap.ui.model.json.JSONModel",
-				"uri": "model/data/ProcessFlowData.json"
+				"uri": "model/dummy_data/ProcessFlowData.json"
 			},
 			"business": {
 				"type": "sap.ui.model.json.JSONModel",
-				"uri": "model/data/BusinessData.json"
+				"uri": "model/dummy_data/BusinessData.json"
 			},
 			"suppliers": {
 				"type": "sap.ui.model.json.JSONModel",
-				"uri": "model/data/Suppliers.json"
+				"uri": "model/dummy_data/Suppliers.json"
 			},
 			"reviews": {
 				"type": "sap.ui.model.json.JSONModel",
-				"uri": "model/data/Reviews.json"
+				"uri": "model/dummy_data/Reviews.json"
 			},
 			"feeds": {
 				"type": "sap.ui.model.xml.XMLModel",
 				"settings": {},
-				"uri": "model/data/feeds.xml"
+				"uri": "model/dummy_data/feeds.xml"
 			}
 		},
 		"routing": {
