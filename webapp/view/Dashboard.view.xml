@@ -53,13 +53,14 @@
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop"
                 header="{i18n>CounterTile}"
                 subheader="{i18n>CounterSubTile}"
+                press=".onNavToInvoicesList"
             >
                 <tileContent>
                     <TileContent>
                         <content>
                             <NumericContent
                                 value="{
-                                    path: 'reviews>/UserReviews',
+                                    path: 'invoices>/value',
                                     formatter: '.getEntityCount'
                                 }"
                                 indicator="None"

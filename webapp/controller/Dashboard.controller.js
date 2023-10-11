@@ -153,6 +153,10 @@ sap.ui.define([
             this.getRouter().navTo("toProcessFlow");
         },
 
+        onNavToInvoicesList: function() {
+            this.getRouter().navTo("toInvoicesList");
+        },
+
         onNavToChartContainer: function () {
             this.getRouter().navTo("toChartContainer");
         },

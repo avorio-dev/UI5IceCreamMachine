@@ -87,6 +87,11 @@
 				"type": "sap.ui.model.xml.XMLModel",
 				"settings": {},
 				"uri": "model/dummy_data/feeds.xml"
+			},
+			"invoices": {
+				"type": "sap.ui.model.json.JSONModel",
+				"settings": {},
+				"uri": "model/dummy_data/invoices.json"
 			}
 		},
 		"routing": {
@@ -117,6 +122,11 @@
 					"target": "processFlow"
 				},
 				{
+					"pattern": "toInvoicesList",
+					"name": "toInvoicesList",
+					"target": "invoices"
+				},
+				{
 					"pattern": "toChartContainer",
 					"name": "toChartContainer",
 					"target": "chartContainer"
@@ -140,6 +150,10 @@
 				"processFlow": {
 					"viewId": "processFlow",
 					"viewName": "ProcessFlow"
+				},
+				"invoices": {
+					"viewId": "invoices",
+					"viewName": "Invoices"
 				},
 				"chartContainer": {
 					"viewId": "chartContainer",
