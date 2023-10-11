@@ -27,7 +27,7 @@
             <!-- Simple Tile with Process Progress -->
             <GenericTile
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop"
-                header="{i18n>ProcessTitle}"
+                header="{i18n>ProcessTile}"
                 subheader="{i18n>ProcessSubTile}"
                 press=".onNavToProcessFlow"
             >
