@@ -12,9 +12,10 @@
         backgroundDesign="Solid"
         showNavButton="true"
         navButtonPress=".onNavBack"
-    />
+    >
     <!-- 
         Adapt controller name
         Adapt page title
     -->
+    </Page>
 </mvc:View>

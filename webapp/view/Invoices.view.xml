@@ -1,50 +1,103 @@
 <mvc:View
-    controllerName="UI5IceCreamMachine.controller.Invoices"
     xmlns:html="http://www.w3.org/1999/xhtml"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
-    displayBlock="true"
     xmlns="sap.m"
     xmlns:layout="sap.ui.layout"
     xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
     xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    controllerName="UI5IceCreamMachine.controller.Invoices"
+    displayBlock="true"
 >
     <Page
         title="{i18n>invoicesTitle}"
         backgroundDesign="Solid"
         showNavButton="true"
         navButtonPress=".onNavBack"
-    />
-    <!-- 
+    >
+        <!-- 
         Adapt controller name
         Adapt page title
     -->
-    <!-- use this to make the table occupy the available screen height -->
-    <VBox fitContainer="true">
-        <smartTable:SmartTable
-            id="LineItemsSmartTable"
-            entitySet="invoices"
-            tableType="Table"
-            beforeExport="onBeforeExport"
-            useVariantManagement="true"
-            useTablePersonalisation="true"
-            header="Invoices List"
-            showRowCount="true"
-            persistencyKey="SmartTableAnalytical_Explored"
-            enableAutoBinding="true"
-            class="sapUiResponsiveContentPadding"
-            enableAutoColumnWidth="true"
-            editTogglable="true"
-            app:useSmartToggle="true"
-        >
-            <!-- layout data used to make the table growing but the filter bar fixed -->
-            <smartTable:layoutData>
-                <FlexItemData
-                    growFactor="1"
-                    baseSize="0%"
-                />
-            </smartTable:layoutData>
-        </smartTable:SmartTable>
-    </VBox>
+        <VBox fitContainer="true">
+            <smartTable:SmartTable
+                id="LineItemsSmartTable"
+                entitySet="invoices&gt;/value"
+                tableType="ResponsiveTable"
+                class="sapUiResponsiveContentPadding"
+                enableAutoColumnWidth="true"
+                header="Invoices List"
+                showRowCount="true"
+                useVariantManagement="true"
+                useTablePersonalisation="true"
+                persistencyKey="SmartTableAnalytical_Explored"
+                editTogglable="true"
+            >
+                <smartTable:customToolbar>
+                    <Toolbar
+                        width="100%"
+                        id="__toolbar2"
+                    >
+                        <content>
+                            <Label
+                                text="Label"
+                                width="100%"
+                                id="__label7"
+                            />
+                        </content>
+                    </Toolbar>
+                </smartTable:customToolbar>
+
+                <!-- layout data used to make the table growing but the filter bar fixed -->
+                <smartTable:layoutData>
+                    <FlexItemData
+                        growFactor="1"
+                        baseSize="0%"
+                    />
+                </smartTable:layoutData>
+            </smartTable:SmartTable>
+        </VBox>
+        <VBox fitContainer="true">
+            <Table items="{invoices>/value}">
+                <columns>
+                    <Column>
+                        <Label text="Ship Name" />
+                    </Column>
+                    <Column>
+                        <Label text="Ship Address" />
+                    </Column>
+                    <Column>
+                        <Label text="Ship City" />
+                    </Column>
+                    <Column>
+                        <Label text="Ship Country" />
+                    </Column>
+                    <Column>
+                        <Label text="Customer Name" />
+                    </Column>
+                    <Column>
+                        <Label text="Unit Price" />
+                    </Column>
+                    <Column>
+                        <Label text="Quantity" />
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{invoices>ShipName}" />
+                            <Text text="{invoices>ShipAddress}" />
+                            <Text text="{invoices>ShipCity}" />
+                            <Text text="{invoices>ShipCountry}" />
+                            <Text text="{invoices>CustomerName}" />
+                            <Text text="{invoices>UnitPrice}" />
+                            <Text text="{invoices>Quantity}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </VBox>
+    </Page>
 </mvc:View>
