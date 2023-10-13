@@ -21,45 +21,15 @@
         Adapt page title
     -->
         <VBox fitContainer="true">
-            <smartTable:SmartTable
-                id="LineItemsSmartTable"
-                entitySet="invoices&gt;/value"
-                tableType="ResponsiveTable"
-                class="sapUiResponsiveContentPadding"
-                enableAutoColumnWidth="true"
-                header="Invoices List"
-                showRowCount="true"
-                useVariantManagement="true"
-                useTablePersonalisation="true"
-                persistencyKey="SmartTableAnalytical_Explored"
-                editTogglable="true"
+            <Table
+                items="{invoices>/value}"
+                alternateRowColors="true"
+                backgroundDesign="Solid"
+                growing="true"
+                growingScrollToLoad="false"
+                growingThreshold="50"
+                mode="MultiSelect"
             >
-                <smartTable:customToolbar>
-                    <Toolbar
-                        width="100%"
-                        id="__toolbar2"
-                    >
-                        <content>
-                            <Label
-                                text="Label"
-                                width="100%"
-                                id="__label7"
-                            />
-                        </content>
-                    </Toolbar>
-                </smartTable:customToolbar>
-
-                <!-- layout data used to make the table growing but the filter bar fixed -->
-                <smartTable:layoutData>
-                    <FlexItemData
-                        growFactor="1"
-                        baseSize="0%"
-                    />
-                </smartTable:layoutData>
-            </smartTable:SmartTable>
-        </VBox>
-        <VBox fitContainer="true">
-            <Table items="{invoices>/value}">
                 <columns>
                     <Column>
                         <Label text="Ship Name" />
