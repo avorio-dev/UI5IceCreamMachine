@@ -24,7 +24,7 @@
             <Table
                 id="invoicesTable"
                 items="{invoices>/value}"
-                alternateRowColors="true"
+                alternateRowColors="false"
                 backgroundDesign="Solid"
                 growing="true"
                 growingScrollToLoad="false"
@@ -33,25 +33,60 @@
             >
                 <columns>
                     <Column>
-                        <Label text="Ship Name" />
+                        <Label
+                            text="Ship Name"
+                            design="Bold"
+                            wrapping="true"
+                            wrappingType="Hyphenated"
+                        />
                     </Column>
                     <Column>
-                        <Label text="Ship Address" />
+                        <Label
+                            text="Ship Address"
+                            design="Bold"
+                            wrapping="true"
+                            wrappingType="Hyphenated"
+                        />
                     </Column>
                     <Column>
-                        <Label text="Ship City" />
+                        <Label
+                            text="Ship City"
+                            design="Bold"
+                            wrapping="true"
+                            wrappingType="Hyphenated"
+                        />
                     </Column>
                     <Column>
-                        <Label text="Ship Country" />
+                        <Label
+                            text="Ship Country"
+                            design="Bold"
+                            wrapping="true"
+                            wrappingType="Hyphenated"
+                        />
                     </Column>
                     <Column>
-                        <Label text="Customer Name" />
+                        <Label
+                            text="Customer Name"
+                            design="Bold"
+                            wrapping="true"
+                            wrappingType="Hyphenated"
+                        />
                     </Column>
                     <Column>
-                        <Label text="Unit Price" />
+                        <Label
+                            text="Unit Price"
+                            design="Bold"
+                            wrapping="true"
+                            wrappingType="Hyphenated"
+                        />
                     </Column>
                     <Column>
-                        <Label text="Quantity" />
+                        <Label
+                            text="Quantity"
+                            design="Bold"
+                            wrapping="true"
+                            wrappingType="Hyphenated"
+                        />
                     </Column>
                 </columns>
 
@@ -63,7 +98,16 @@
                             <Text text="{invoices>ShipCity}" />
                             <Text text="{invoices>ShipCountry}" />
                             <Text text="{invoices>CustomerName}" />
-                            <Text text="{invoices>UnitPrice}" />
+                            <!-- <Text text="{invoices>UnitPrice}" /> -->
+                            <Text
+                                text="{
+                                        parts: [
+                                            {path: 'invoices>UnitPrice'}, 
+                                            {path: 'invoices>Currency'}
+                                        ], 
+                                        formatter: '.formatCurrency'
+                                    }"
+                            />
                             <Text text="{invoices>Quantity}" />
                         </cells>
                     </ColumnListItem>

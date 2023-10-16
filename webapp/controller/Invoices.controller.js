@@ -12,6 +12,10 @@ sap.ui.define([
 
         onNavBack: function (oEvent) {
             Utils.onNavBack(this);
+        },
+
+        formatCurrency: function (unitPrice, currency) {
+            return unitPrice + ' ' + currency;
         }
 
     });
