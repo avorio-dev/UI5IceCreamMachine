@@ -4,10 +4,14 @@ sap.ui.define([
     "sap/ui/model/xml/XMLModel",
     "sap/base/strings/formatMessage",
     "sap/ui/core/format/NumberFormat",
-    "../libs/Settings"
+    "../libs/Settings",
+    "../libs/Utils"
 
 ], function (Controller, JSONModel, XMLModel, formatMessage, NumberFormat, Settings) {
     "use strict";
+
+    // GLOBALS
+    var sNavTo;
 
 
     /* Fill Tile with data loaded from XML Model */
@@ -150,19 +154,23 @@ sap.ui.define([
         },
 
         onNavToProcessFlow: function () {
-            this.getRouter().navTo("toProcessFlow");
+            sNavTo = "toProcessFlow";
+            this.getRouter().navTo(sNavTo);
         },
 
         onNavToInvoicesList: function() {
-            this.getRouter().navTo("toInvoicesList");
+            sNavTo = "toInvoicesList";
+            this.getRouter().navTo(sNavTo);
         },
 
         onNavToChartContainer: function () {
-            this.getRouter().navTo("toChartContainer");
+            sNavTo = "toChartContainer";
+            this.getRouter().navTo(sNavTo);
         },
 
         onNavToReviews: function () {
-            this.getRouter().navTo("toReviews");
+            sNavTo = "toReviews";
+            this.getRouter().navTo(sNavTo);
         },
 
         getRouter: function () {
