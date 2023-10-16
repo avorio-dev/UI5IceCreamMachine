@@ -7,7 +7,7 @@ sap.ui.define([
     "../libs/Settings",
     "../libs/Utils"
 
-], function (Controller, JSONModel, XMLModel, formatMessage, NumberFormat, Settings) {
+], function (Controller, JSONModel, XMLModel, formatMessage, NumberFormat, Settings, Utils) {
     "use strict";
 
     // GLOBALS
