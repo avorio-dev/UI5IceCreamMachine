@@ -10,9 +10,12 @@ sap.ui.define([
 ], function (Controller, JSONModel, XMLModel, formatMessage, NumberFormat, Settings, Utils) {
     "use strict";
 
-    // GLOBALS
+    // --> GLOBALS
+    // --------------------------------------------------
     var sNavTo;
 
+    // --> FUNCTIONS
+    // --------------------------------------------------
 
     /* Fill Tile with data loaded from XML Model */
     function _initXMLTile(oContext) {
@@ -77,23 +80,16 @@ sap.ui.define([
 
     }
 
+    // --> EVENTS
+    // --------------------------------------------------
     return Controller.extend("UI5IceCreamMachine.controller.Dashboard", {
 
         /* Initialize all components on first call of the page */
         onInit: function () {
 
-            var oDashboardPage = this.getView().byId("dashboardPage");
-            //oDashboardPage.setNavButtonIcon("sap-icon://home");
-
             Settings.load_settings(this, "toolbar");
             _initXMLTile(this);
             _initJSONTile(this);
-
-            /* 
-            var sDataPath = sap.ui.require.toUrl("sap/suite/ui/commons/demokit/tutorial/icecream/03/model/data") + "/News.json";
-            var oNewsModel = new JSONModel(sDataPath);
-            this.getView().setModel(oNewsModel, "news");
-            */
 
         },
 
@@ -153,28 +149,30 @@ sap.ui.define([
             window.open(sLink, "_blank");
         },
 
-        onNavToProcessFlow: function () {
-            sNavTo = "toProcessFlow";
-            this.getRouter().navTo(sNavTo);
+        // --> NAV TO EVENTS
+        // --------------------------------------------------
+        getRouter: function () {
+            return this.getOwnerComponent().getRouter();
         },
 
-        onNavToInvoicesList: function() {
+        onNavToProcessFlow: function () {
+            sNavTo = "toProcessFlow";
+            Utils.onNavTo(this, sNavTo);
+        },
+
+        onNavToInvoicesList: function () {
             sNavTo = "toInvoicesList";
-            this.getRouter().navTo(sNavTo);
+            Utils.onNavTo(this, sNavTo);
         },
 
         onNavToChartContainer: function () {
             sNavTo = "toChartContainer";
-            this.getRouter().navTo(sNavTo);
+            Utils.onNavTo(this, sNavTo);
         },
 
         onNavToReviews: function () {
             sNavTo = "toReviews";
-            this.getRouter().navTo(sNavTo);
-        },
-
-        getRouter: function () {
-            return this.getOwnerComponent().getRouter();
+            Utils.onNavTo(this, sNavTo);
         }
     });
 });

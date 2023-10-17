@@ -4,13 +4,29 @@ sap.ui.define([
 ], function (History) {
     "use strict";
 
+    /* Start loading page */
+    function _startLoading() {
+        sap.ui.core.BusyIndicator.show(0);
+    }
+
+    /* Stop loading page */
+    function _stopLoading(routeName) {
+        sap.ui.core.BusyIndicator.hide();
+    }
 
     return {
         /* Nav to input Route */
-        onNavTo: function(oContext, routeName) {
-            oContext.startLoading();
-            oContext.getRouter().navTo(routeName);
-            oRouter.getRoute(routeName).attachPatternMatched(oContext.stopLoading, this);
+        onNavTo: function (oContext, routeName) {
+
+            // Show Busy Indicator 
+            _startLoading();
+
+            // Start navigation
+            var oRouter = oContext.getOwnerComponent().getRouter();
+            oRouter.navTo(routeName);
+
+            // Hide Busy Indicator once that route has been loaded
+            oRouter.getRoute(routeName).attachPatternMatched(_stopLoading, this);
         },
 
         /* Nav to the back page */
@@ -26,15 +42,12 @@ sap.ui.define([
             }
         },
 
-        /* Start loading page */
         startLoading: function () {
-            sap.ui.core.BusyIndicator.show(0);
+            _startLoading();
         },
 
-
-        /* Stop loading page */
-        stopLoading: function (routeName) {
-            sap.ui.core.BusyIndicator.hide();
+        stopLoading: function () {
+            _stopLoading();
         }
 
     };

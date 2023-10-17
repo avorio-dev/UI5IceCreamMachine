@@ -1,17 +1,19 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
-	"sap/m/MessageBox",
-	"sap/ui/core/Component",
-	"../libs/Settings"
+	"../libs/Settings",
+	"../libs/Utils"
 
-], function (Controller, MessageBox, Component, Settings) {
+], function (Controller, Settings, Utils) {
 	"use strict";
 
-	// Globals
+	// --> GLOBALS
+	// --------------------------------------------------
 	var _maxProgress = 100,
 		_updateInterval = 15;
 
 
+	// --> FUNCTIONS
+	// --------------------------------------------------
 	/* Hide Loading Bar */
 	function _hideLoadingBar(oContext) {
 		var oLoadingBar = oContext.getView().byId("loadingBar");
@@ -105,8 +107,9 @@ sap.ui.define([
 
 	}
 
-	/* -------------------------------------------------------------------------*/
-
+	
+	// --> EVENTS
+	// --------------------------------------------------
 	return Controller.extend("UI5IceCreamMachine.controller.App", {
 
 		/* Initialize all components on first call of the page */
@@ -117,8 +120,8 @@ sap.ui.define([
 		/* Function that will be called on Dashboard Button Press */
 		onDashboardBtn: function () {
 			//window.open("https://shorturl.at/tILT5", "_blank");
-			var oRouter = this.getOwnerComponent().getRouter();
-			oRouter.navTo("toDashboard");
+			var sNavTo = "toDashboard";
+			Utils.onNavTo(this, sNavTo);
 		},
 
 		onSetTheme: function (oEvent) {
