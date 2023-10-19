@@ -165,6 +165,11 @@ sap.ui.define([
             Utils.onNavTo(this, sNavTo);
         },
 
+        onNavToMockDataInvoicesList: function () {
+            sNavTo = "toMockInvoicesList";
+            Utils.onNavTo(this, sNavTo);
+        },
+
         onNavToChartContainer: function () {
             sNavTo = "toChartContainer";
             Utils.onNavTo(this, sNavTo);

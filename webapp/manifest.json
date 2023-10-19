@@ -144,6 +144,11 @@
 					"pattern": "toReviews",
 					"name": "toReviews",
 					"target": "reviews"
+				},
+				{
+					"pattern": "toMockInvoicesList",
+					"name": "toMockInvoicesList",
+					"target": "mockInvoicesList"
 				}
 			],
 			"targets": {
@@ -171,6 +176,10 @@
 				"reviews": {
 					"viewId": "reviews",
 					"viewName": "Reviews"
+				},
+				"mockInvoicesList": {
+					"viewId": "mockInvoicesList",
+					"viewName": "MockInvoicesList"
 				}
 			}
 		},

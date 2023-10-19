@@ -8,8 +8,10 @@
     xmlns:layout="sap.ui.layout"
     xmlns:microchart="sap.suite.ui.microchart"
 >
-    <Toolbar id="toolbar"
-    height="auto">
+    <Toolbar
+        id="toolbar"
+        height="auto"
+    >
         <Title
             text="{i18n>dashboardTitle}"
             titleStyle="H3"
@@ -69,6 +71,15 @@
                         </content>
                     </TileContent>
                 </tileContent>
+            </GenericTile>
+
+            <!-- Simple Tile with Data from Mock Server -->
+            <GenericTile
+                class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+                header="{i18n>CounterTile}"
+                subheader="{i18n>CounterSubTile}"
+                press=".onNavToMockDataInvoicesList"
+            >
             </GenericTile>
 
             <!-- Simple Tile with Micro Chart-->
