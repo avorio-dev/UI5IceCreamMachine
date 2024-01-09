@@ -1,4 +1,7 @@
-sap.ui.define([], function () {
+sap.ui.define([
+    "sap/m/MessageBox"
+
+], function (MessageBox) {
     "use strict";
 
 
@@ -65,7 +68,7 @@ sap.ui.define([], function () {
             var sMinUI5Version = oManifest["sap.ui5"].dependencies.minUI5Version;
             sVersionInfo += "UI5 Version:" + "\t" + sMinUI5Version;
 
-            sap.m.MessageBox.information(sVersionInfo, {
+            MessageBox.information(sVersionInfo, {
                 styleClass: "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer"
             });
         }
