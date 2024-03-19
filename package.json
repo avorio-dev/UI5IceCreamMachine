@@ -1,0 +1,12 @@
+{
+  "name": "ui5icecreammachine",
+  "version": "1.0.0",
+  "description": "Ice Cream Machine Template with SAP UI5",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ui5 serve -o webapp/index.html"
+  },
+  "author": "",
+  "license": "ISC"
+}
