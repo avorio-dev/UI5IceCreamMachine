@@ -37,8 +37,8 @@ sap.ui.define([
 
             How to Use:
             onSetTheme: function (oEvent) {
-			    Settings.setTheme(oEvent);
-		    }
+                Settings.setTheme(oEvent);
+            }
         */
         setTheme: function (oEvent) {
             // Trigger from menu selection
@@ -52,8 +52,8 @@ sap.ui.define([
 
             How to Use:
             onVersionInfo: function (oEvent) {
-			    Settings.onVersionInfo(oEvent);
-		    }
+                Settings.onVersionInfo(oEvent);
+            }
         */
         onVersionInfo: function (oEvent) {
             console.log(oEvent);

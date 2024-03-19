@@ -2,82 +2,71 @@ sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"../libs/Settings",
 	"../libs/Utils"
-
 ], function (Controller, Settings, Utils) {
 	"use strict";
 
-	// --> GLOBALS
-	// --------------------------------------------------
-	var _maxProgress = 100,
-		_updateInterval = 15;
-
-
-	// --> FUNCTIONS
-	// --------------------------------------------------
-	/* Hide Loading Bar */
-	function _hideLoadingBar(oContext) {
-		var oLoadingBar = oContext.getView().byId("loadingBar");
-		oLoadingBar.setVisible(false);
-	}
-
-	/* Show Loading Bar */
-	function _showLoadingBar(oContext) {
-		var oLoadingBar = oContext.getView().byId("loadingBar");
-
-		oLoadingBar.setVisible(true);
-
-		oLoadingBar.setPercentValue(0);
-		oLoadingBar.setDisplayValue(0 + "%");
-	}
+	// Maximum progress value for the loading bar
+	let _maxProgress = 100;
+	// Interval for updating the loading bar
+	let _updateInterval = 15;
 
 	/*
-		If you want to hide some component, for example when loading bar is filling up,
-		add here your component
+		Hides the loading bar component.
+	    
+		Parameters:
+			oContext {object}: The context object containing the view where the loading bar is located.
 	*/
-	function _hideComponent(oContext) {
-		var oDashboardButton = oContext.getView().byId("dashboardBtn");
-
-		oDashboardButton.setVisible(false);
+	function _hideLoadingBar(oContext) {
+		Utils.hideComponent(oContext, ["loadingBar"]);
 	}
 
 	/*
-		If you want to show some components, for example when loading bar is full,
-		add here your component 
+		Shows the loading bar component and initializes it.
+	    
+		Parameters:
+			oContext {object}: The context object containing the view where the loading bar is located.
+	*/
+	function _showLoadingBar(oContext) {
+		Utils.showComponent(oContext, ["loadingBar"]);
+		let oLoadingBar = oContext.getView().byId("loadingBar");
+		oLoadingBar.setPercentValue(0);
+		oLoadingBar.setDisplayValue("0%");
+	}
+
+	/*
+		Shows additional components once the loading bar reaches 100%.
+	    
+		Parameters:
+			oContext {object}: The context object containing the view where the loading bar is located.
 	*/
 	function _showComponent(oContext) {
-		var oLoadingBar = oContext.getView().byId("loadingBar");
+		let oLoadingBar = oContext.getView().byId("loadingBar");
 
 		if (oLoadingBar.getPercentValue() === 100) {
-			// set visible = true to your component here 
+			Utils.showComponent(oContext, ["dashboardBtn"]);
 
-			var oDashboardButton = oContext.getView().byId("dashboardBtn");
-
-			oDashboardButton.setVisible(true);
-
-			// Load Settings Fragment 
-			var sFragmentPath = oContext.getOwnerComponent().getModel("namespace").getProperty("/path_fragment") + ".Settings";
+			let sFragmentPath = oContext.getOwnerComponent().getModel("namespace").getProperty("/path_fragment") + ".Settings";
 			if (!oContext.pFragment) {
-				// Carica il fragment in modo asincrono
 				oContext.pFragment = oContext.loadFragment({
 					name: sFragmentPath
 				});
 			}
 
 			oContext.pFragment.then(function (oFragment) {
-				// Aggiungi il fragment al Toolbar
-				var oToolbar = oContext.getView().byId("toolbar");
+				let oToolbar = oContext.getView().byId("toolbar");
 				oToolbar.addContent(oFragment);
 			}.bind(oContext));
 		}
 	}
 
-	/* 
-		Start Animation of Loading Bar, 
-		at the end, all components will be print on the screen
+	/*
+		Fills the loading bar gradually until it reaches the maximum progress value.
+	    
+		Parameters:
+			oContext {object}: The context object containing the view where the loading bar is located.
 	*/
 	function _fillLoadingBar(oContext) {
-
-		var oLoadingBar = oContext.getView().byId("loadingBar"),
+		let oLoadingBar = oContext.getView().byId("loadingBar"),
 			currentValue = oLoadingBar.getPercentValue();
 
 		if (currentValue < _maxProgress) {
@@ -93,44 +82,60 @@ sap.ui.define([
 		}
 	}
 
-	/* Load all components of the View */
+	/*
+		Loads components and initializes the view.
+	*/
 	function _loadComponents(oContext) {
-
-		// Set content density
 		oContext.getView().addStyleClass(oContext.getOwnerComponent().getContentDensityClass());
 
-		// Set LOADING Bar and components visibility
 		_hideLoadingBar(oContext);
-		_hideComponent(oContext);
+		Utils.hideComponent(oContext, ["dashboardBtn"]);
+
 		setTimeout(_showLoadingBar, 1000, oContext);
 		setTimeout(_fillLoadingBar, 1500, oContext);
-
 	}
 
-	
-	// --> EVENTS
-	// --------------------------------------------------
+	/*
+		Function to be executed during view initialization, responsible for loading components.
+	*/
+	function loadComponents() {
+		_loadComponents(this);
+	}
+
+	/*
+		Handles click event of the dashboard button.
+	*/
+	function onDashboardBtn() {
+		let sNavTo = "toDashboard";
+		Utils.onNavTo(this, sNavTo);
+	}
+
+	/*
+		Handles the change event for setting the theme.
+	    
+		Parameters:
+			oEvent {object}: The event object.
+	*/
+	function onSetTheme(oEvent) {
+		Settings.setTheme(oEvent);
+	}
+
+	/*
+		Handles the click event for displaying version information.
+	    
+		Parameters:
+			oEvent {object}: The event object.
+	*/
+	function onVersionInfo(oEvent) {
+		Settings.onVersionInfo(oEvent);
+	}
+
 	return Controller.extend("UI5IceCreamMachine.controller.App", {
 
-		/* Initialize all components on first call of the page */
-		onInit: function () {
-			_loadComponents(this);
-		},
-
-		/* Function that will be called on Dashboard Button Press */
-		onDashboardBtn: function () {
-			//window.open("https://shorturl.at/tILT5", "_blank");
-			var sNavTo = "toDashboard";
-			Utils.onNavTo(this, sNavTo);
-		},
-
-		onSetTheme: function (oEvent) {
-			Settings.setTheme(oEvent);
-		},
-
-		onVersionInfo: function (oEvent) {
-			Settings.onVersionInfo(oEvent);
-		}
+		onInit: loadComponents,
+		onDashboardBtn: onDashboardBtn,
+		onSetTheme: onSetTheme,
+		onVersionInfo: onVersionInfo
 
 	});
 });
