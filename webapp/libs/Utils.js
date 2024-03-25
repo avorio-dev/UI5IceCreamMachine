@@ -4,13 +4,16 @@ sap.ui.define([
 ], function (History) {
     "use strict";
 
+    // --> PRIVATE SECTION
+    // --------------------------------------------------
+
     /*
         Shows or hides the busy indicator.
         
         Parameters:
             visible {boolean}: If true, shows the busy indicator, otherwise hides it.
     */
-    function _onOffBusyIndicator(visible) {
+    function _setBusyIndicatorVisibility(visible) {
         if (visible) {
             sap.ui.core.BusyIndicator.show(0);
         } else {
@@ -39,6 +42,10 @@ sap.ui.define([
         });
     }
 
+
+    // --> PUBLIC SECTION
+    // --------------------------------------------------
+
     /*
         Handles navigation to a specific route.
         
@@ -47,13 +54,13 @@ sap.ui.define([
             routeName {string}: The name of the route to navigate to.
     */
     function onNavTo(oContext, routeName) {
-        _onOffBusyIndicator(true);
+        _setBusyIndicatorVisibility(true);
 
         let oRouter = oContext.getOwnerComponent().getRouter();
         oRouter.navTo(routeName);
 
         oRouter.getRoute(routeName).attachPatternMatched(function () {
-            _onOffBusyIndicator(false);
+            _setBusyIndicatorVisibility(false);
         });
     }
 
@@ -82,38 +89,31 @@ sap.ui.define([
         Parameters:
             visible {boolean}: If true, shows the busy indicator, otherwise hides it.
     */
-    function onOffBusyIndicator(visible) {
-        _onOffBusyIndicator(visible);
+    function setBusyIndicatorVisibility(visible) {
+        _setBusyIndicatorVisibility(visible);
     }
 
     /*
-        Hides specified components based on their IDs.
+        Shows or Hides specified components based on their IDs.
         
         Parameters:
             oContext {object}: The context object containing the view where the components are located.
-            idToHide {array<string>}: An array containing the IDs of the components to hide.
+            idToHide {array<string>}: An array containing the IDs of the components to show or hide.
+            visible {boolean}: If true, shows the components, otherwise hides them
     */
-    function hideComponent(oContext, idToHide) {
-        _setComponentVisibility(oContext, idToHide, false);
+    function setComponentVisibility(oContext, idToHide, visible) {
+        _setComponentVisibility(oContext, idToHide, visible);
     }
 
-    /*
-        Shows specified components based on their IDs.
-        
-        Parameters:
-            oContext {object}: The context object containing the view where the components are located.
-            idToShow {array<string>}: An array containing the IDs of the components to show.
-    */
-    function showComponent(oContext, idToShow) {
-        _setComponentVisibility(oContext, idToShow, true);
-    }
+
+    // --> EVENTS
+    // --------------------------------------------------
 
     return {
         onNavTo: onNavTo,
         onNavBack: onNavBack,
-        showBusyIndicator: onOffBusyIndicator,
-        hideComponent: hideComponent,
-        showComponent: showComponent
+        setBusyIndicatorVisibility: setBusyIndicatorVisibility,
+        setComponentVisibility: setComponentVisibility,
     };
 
 });

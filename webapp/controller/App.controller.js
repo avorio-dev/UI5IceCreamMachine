@@ -17,7 +17,7 @@ sap.ui.define([
 			oContext {object}: The context object containing the view where the loading bar is located.
 	*/
 	function _hideLoadingBar(oContext) {
-		Utils.hideComponent(oContext, ["loadingBar"]);
+		Utils.setComponentVisibility(oContext, ["loadingBar"], false);
 	}
 
 	/*
@@ -27,7 +27,7 @@ sap.ui.define([
 			oContext {object}: The context object containing the view where the loading bar is located.
 	*/
 	function _showLoadingBar(oContext) {
-		Utils.showComponent(oContext, ["loadingBar"]);
+		Utils.setComponentVisibility(oContext, ["loadingBar"], true);
 		let oLoadingBar = oContext.getView().byId("loadingBar");
 		oLoadingBar.setPercentValue(0);
 		oLoadingBar.setDisplayValue("0%");
@@ -43,7 +43,7 @@ sap.ui.define([
 		let oLoadingBar = oContext.getView().byId("loadingBar");
 
 		if (oLoadingBar.getPercentValue() === 100) {
-			Utils.showComponent(oContext, ["dashboardBtn"]);
+			Utils.setComponentVisibility(oContext, ["dashboardBtn"], true);
 
 			let sFragmentPath = oContext.getOwnerComponent().getModel("namespace").getProperty("/path_fragment") + ".Settings";
 			if (!oContext.pFragment) {
@@ -89,7 +89,7 @@ sap.ui.define([
 		oContext.getView().addStyleClass(oContext.getOwnerComponent().getContentDensityClass());
 
 		_hideLoadingBar(oContext);
-		Utils.hideComponent(oContext, ["dashboardBtn"]);
+		Utils.setComponentVisibility(oContext, ["dashboardBtn"], false);
 
 		setTimeout(_showLoadingBar, 1000, oContext);
 		setTimeout(_fillLoadingBar, 1500, oContext);
