@@ -5,13 +5,13 @@ sap.ui.define([
     "use strict";
 
     /*
-    Shows or hides the busy indicator.
-    
-    Parameters:
-        showIndicator {boolean}: If true, shows the busy indicator, otherwise hides it.
-*/
-    function _showBusyIndicator(showIndicator) {
-        if (showIndicator) {
+        Shows or hides the busy indicator.
+        
+        Parameters:
+            visible {boolean}: If true, shows the busy indicator, otherwise hides it.
+    */
+    function _onOffBusyIndicator(visible) {
+        if (visible) {
             sap.ui.core.BusyIndicator.show(0);
         } else {
             sap.ui.core.BusyIndicator.hide();
@@ -19,33 +19,22 @@ sap.ui.define([
     }
 
     /*
-        Hides specified components based on their IDs.
+        Show or Hides specified components based on their IDs.
         
         Parameters:
             oContext {object}: The context object containing the view where the components are located.
-            idToHide {array<string>}: An array containing the IDs of the components to hide.
+            idToHide {array<string>}: An array containing the IDs of the components to set visibility.
+            visible {boolean}: If true, shows the components, otherwise hides them.
     */
-    function _hideComponent(oContext, idToHide) {
-        idToHide.forEach(id => {
+    function _setComponentVisibility(oContext, idToSet, visible) {
+        idToSet.forEach(id => {
             let oComponent = oContext.getView().byId(id);
             if (oComponent) {
-                oComponent.setVisible(false);
-            }
-        });
-    }
-
-    /*
-        Shows specified components based on their IDs.
-        
-        Parameters:
-            oContext {object}: The context object containing the view where the components are located.
-            idToShow {array<string>}: An array containing the IDs of the components to show.
-    */
-    function _showComponent(oContext, idToShow) {
-        idToShow.forEach(id => {
-            let oComponent = oContext.getView().byId(id);
-            if (oComponent) {
-                oComponent.setVisible(true);
+                if (visible) {
+                    oComponent.setVisible(true);
+                } else {
+                    oComponent.setVisible(false);
+                }
             }
         });
     }
@@ -58,13 +47,13 @@ sap.ui.define([
             routeName {string}: The name of the route to navigate to.
     */
     function onNavTo(oContext, routeName) {
-        _showBusyIndicator(true);
+        _onOffBusyIndicator(true);
 
         let oRouter = oContext.getOwnerComponent().getRouter();
         oRouter.navTo(routeName);
 
         oRouter.getRoute(routeName).attachPatternMatched(function () {
-            _showBusyIndicator(false);
+            _onOffBusyIndicator(false);
         });
     }
 
@@ -91,10 +80,10 @@ sap.ui.define([
         Shows or hides the busy indicator.
         
         Parameters:
-            showBusyIndicator {boolean}: If true, shows the busy indicator, otherwise hides it.
+            visible {boolean}: If true, shows the busy indicator, otherwise hides it.
     */
-    function showBusyIndicator(showBusyIndicator) {
-        _showBusyIndicator(showBusyIndicator);
+    function onOffBusyIndicator(visible) {
+        _onOffBusyIndicator(visible);
     }
 
     /*
@@ -105,7 +94,7 @@ sap.ui.define([
             idToHide {array<string>}: An array containing the IDs of the components to hide.
     */
     function hideComponent(oContext, idToHide) {
-        _hideComponent(oContext, idToHide);
+        _setComponentVisibility(oContext, idToHide, false);
     }
 
     /*
@@ -116,13 +105,13 @@ sap.ui.define([
             idToShow {array<string>}: An array containing the IDs of the components to show.
     */
     function showComponent(oContext, idToShow) {
-        _showComponent(oContext, idToShow);
+        _setComponentVisibility(oContext, idToShow, true);
     }
 
     return {
         onNavTo: onNavTo,
         onNavBack: onNavBack,
-        showBusyIndicator: showBusyIndicator,
+        showBusyIndicator: onOffBusyIndicator,
         hideComponent: hideComponent,
         showComponent: showComponent
     };

@@ -87,7 +87,7 @@ sap.ui.define([
         /* Initialize all components on first call of the page */
         onInit: function () {
 
-            Settings.load_settings(this, "toolbar");
+            Settings.loadSettingsFrag(this, "toolbar");
             _initXMLTile(this);
             _initJSONTile(this);
 

@@ -4,20 +4,18 @@ sap.ui.define([
 ], function (MessageBox) {
     "use strict";
 
-
-
     return {
 
         /* 
-            Show component on your toolbar, 
+            Show component "Settings" on your toolbar, 
             passing context (onInit) and Toolbar ID
 
             How to Use:
             onInit: function () {
-                Settings.load_settings(this, "toolbar");
+                Settings.loadSettingsFrag(this, "toolbar");
             }
         */
-        load_settings: function (oContext, sViewId) {
+        loadSettingsFrag: function (oContext, sViewId) {
 
             var sFragmentPath = oContext.getOwnerComponent().getModel("namespace").getProperty("/path_fragment") + ".Settings";
             if (!oContext.pFragment) {
