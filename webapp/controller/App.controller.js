@@ -11,6 +11,29 @@ sap.ui.define([
 	let _maxProgress = 100; // Maximum progress value for the loading bar
 	let _updateInterval = 15; // Interval for updating the loading bar
 
+	function _onSetTheme(oEvent) {
+		Settings.setTheme(oEvent);
+	}
+
+	function _onVersionInfo(oEvent) {
+		Settings.onVersionInfo(oEvent);
+	}
+
+	function _onDashboardBtn() {
+		let sNavTo = "toDashboard";
+		Utils.onNavTo(this, sNavTo);
+	}
+
+	function _loadComponents(oContext) {
+		oContext.getView().addStyleClass(oContext.getOwnerComponent().getContentDensityClass());
+
+		_hideLoadingBar(oContext);
+		Utils.setComponentVisibility(oContext, ["dashboardBtn"], false);
+
+		setTimeout(_showLoadingBar, 1000, oContext);
+		setTimeout(_fillLoadingBar, 1500, oContext);
+	}
+
 	/*
 		Hides the loading bar component.
 	    
@@ -82,55 +105,10 @@ sap.ui.define([
 
 		}
 	}
-
-	/*
-		Loads components and initializes the view.
-	*/
-	function _loadComponents(oContext) {
-		oContext.getView().addStyleClass(oContext.getOwnerComponent().getContentDensityClass());
-
-		_hideLoadingBar(oContext);
-		Utils.setComponentVisibility(oContext, ["dashboardBtn"], false);
-
-		setTimeout(_showLoadingBar, 1000, oContext);
-		setTimeout(_fillLoadingBar, 1500, oContext);
-	}
-
-	/*
-		Function to be executed during view initialization, responsible for loading components.
-	*/
+	
 	function loadComponents() {
 		_loadComponents(this);
 	}
-
-	/*
-		Handles click event of the dashboard button.
-	*/
-	function onDashboardBtn() {
-		let sNavTo = "toDashboard";
-		Utils.onNavTo(this, sNavTo);
-	}
-
-	/*
-		Handles the change event for setting the theme.
-	    
-		Parameters:
-			oEvent {object}: The event object.
-	*/
-	function onSetTheme(oEvent) {
-		Settings.setTheme(oEvent);
-	}
-
-	/*
-		Handles the click event for displaying version information.
-	    
-		Parameters:
-			oEvent {object}: The event object.
-	*/
-	function onVersionInfo(oEvent) {
-		Settings.onVersionInfo(oEvent);
-	}
-
 
 	// --> PUBLIC SECTION
 	// --------------------------------------------------
@@ -138,9 +116,9 @@ sap.ui.define([
 	return Controller.extend("UI5IceCreamMachine.controller.App", {
 
 		onInit: loadComponents,
-		onDashboardBtn: onDashboardBtn,
-		onSetTheme: onSetTheme,
-		onVersionInfo: onVersionInfo
+		onSetTheme: _onSetTheme,
+		onVersionInfo: _onVersionInfo,
+		onDashboardBtn: _onDashboardBtn,
 
 	});
 });
