@@ -131,6 +131,10 @@ sap.ui.define([
 		Settings.onVersionInfo(oEvent);
 	}
 
+
+	// --> PUBLIC SECTION
+	// --------------------------------------------------
+
 	return Controller.extend("UI5IceCreamMachine.controller.App", {
 
 		onInit: loadComponents,
