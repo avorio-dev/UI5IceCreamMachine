@@ -11,58 +11,48 @@ sap.ui.define([
 	let _maxProgress = 100; // Maximum progress value for the loading bar
 	let _updateInterval = 15; // Interval for updating the loading bar
 
-	function _onSetTheme(oEvent) {
-		Settings.setTheme(oEvent);
-	}
-
-	function _onVersionInfo(oEvent) {
-		Settings.onVersionInfo(oEvent);
-	}
-
-	function _onDashboardBtn() {
-		let sNavTo = "toDashboard";
-		Utils.onNavTo(this, sNavTo);
-	}
-
-	function _loadComponents(oContext) {
+	function _loadComponents() {
+		let oContext = this;
 		oContext.getView().addStyleClass(oContext.getOwnerComponent().getContentDensityClass());
 
-		_hideLoadingBar(oContext);
-		Utils.setComponentVisibility(oContext, ["dashboardBtn"], false);
+		Utils.setComponentVisibility(oContext, ["loadingBar", "dashboardBtn"], false);
 
 		setTimeout(_showLoadingBar, 1000, oContext);
 		setTimeout(_fillLoadingBar, 1500, oContext);
 	}
 
-	/*
-		Hides the loading bar component.
-	    
-		Parameters:
-			oContext {object}: The context object containing the view where the loading bar is located.
-	*/
 	function _hideLoadingBar(oContext) {
-		Utils.setComponentVisibility(oContext, ["loadingBar"], false);
+		let loadingBarId = "loadingBar";
+
+		Utils.setComponentVisibility(oContext, [loadingBarId], false);
 	}
 
-	/*
-		Shows the loading bar component and initializes it.
-	    
-		Parameters:
-			oContext {object}: The context object containing the view where the loading bar is located.
-	*/
 	function _showLoadingBar(oContext) {
-		Utils.setComponentVisibility(oContext, ["loadingBar"], true);
-		let oLoadingBar = oContext.getView().byId("loadingBar");
+		let loadingBarId = "loadingBar",
+			oLoadingBar = oContext.getView().byId(loadingBarId);
+
+		Utils.setComponentVisibility(oContext, [loadingBarId], true);
 		oLoadingBar.setPercentValue(0);
 		oLoadingBar.setDisplayValue("0%");
 	}
 
-	/*
-		Shows additional components once the loading bar reaches 100%.
-	    
-		Parameters:
-			oContext {object}: The context object containing the view where the loading bar is located.
-	*/
+	function _fillLoadingBar(oContext) {
+		let oLoadingBar = oContext.getView().byId("loadingBar"),
+			currentValue = oLoadingBar.getPercentValue();
+
+		if (currentValue < _maxProgress) {
+			currentValue += 1;
+			oLoadingBar.setPercentValue(+currentValue);
+			oLoadingBar.setDisplayValue(currentValue + "%");
+			setTimeout(_fillLoadingBar, _updateInterval, oContext);
+
+		} else {
+			setTimeout(_hideLoadingBar, 200, oContext);
+			setTimeout(_showComponent, 200, oContext);
+
+		}
+	}
+
 	function _showComponent(oContext) {
 		let oLoadingBar = oContext.getView().byId("loadingBar");
 
@@ -83,39 +73,26 @@ sap.ui.define([
 		}
 	}
 
-	/*
-		Fills the loading bar gradually until it reaches the maximum progress value.
-	    
-		Parameters:
-			oContext {object}: The context object containing the view where the loading bar is located.
-	*/
-	function _fillLoadingBar(oContext) {
-		let oLoadingBar = oContext.getView().byId("loadingBar"),
-			currentValue = oLoadingBar.getPercentValue();
-
-		if (currentValue < _maxProgress) {
-			currentValue += 1;
-			oLoadingBar.setPercentValue(+currentValue);
-			oLoadingBar.setDisplayValue(currentValue + "%");
-			setTimeout(_fillLoadingBar, _updateInterval, oContext);
-
-		} else {
-			setTimeout(_hideLoadingBar, 200, oContext);
-			setTimeout(_showComponent, 200, oContext);
-
-		}
+	function _onSetTheme(oEvent) {
+		Settings.setTheme(oEvent);
 	}
-	
-	function loadComponents() {
-		_loadComponents(this);
+
+	function _onVersionInfo(oEvent) {
+		Settings.onVersionInfo(oEvent);
 	}
+
+	function _onDashboardBtn() {
+		let sNavTo = "toDashboard";
+		Utils.onNavTo(this, sNavTo);
+	}
+
 
 	// --> PUBLIC SECTION
 	// --------------------------------------------------
 
 	return Controller.extend("UI5IceCreamMachine.controller.App", {
 
-		onInit: loadComponents,
+		onInit: _loadComponents,
 		onSetTheme: _onSetTheme,
 		onVersionInfo: _onVersionInfo,
 		onDashboardBtn: _onDashboardBtn,
