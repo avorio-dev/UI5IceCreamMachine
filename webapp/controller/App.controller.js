@@ -5,10 +5,11 @@ sap.ui.define([
 ], function (Controller, Settings, Utils) {
 	"use strict";
 
-	// Maximum progress value for the loading bar
-	let _maxProgress = 100;
-	// Interval for updating the loading bar
-	let _updateInterval = 15;
+	// --> PRIVATE SECTION
+	// --------------------------------------------------
+
+	let _maxProgress = 100; // Maximum progress value for the loading bar
+	let _updateInterval = 15; // Interval for updating the loading bar
 
 	/*
 		Hides the loading bar component.
