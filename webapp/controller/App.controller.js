@@ -10,6 +10,7 @@ sap.ui.define([
 
 	let _maxProgress = 100; // Maximum progress value for the loading bar
 	let _updateInterval = 15; // Interval for updating the loading bar
+	let _loadingCompleted = false;
 
 	function _loadComponents() {
 		let oContext = this;
@@ -19,6 +20,8 @@ sap.ui.define([
 
 		setTimeout(_showLoadingBar, 1000, oContext);
 		setTimeout(_fillLoadingBar, 1500, oContext);
+		setTimeout(_hideLoadingBar, 1700, oContext);
+		setTimeout(_showComponent, 1900, oContext);
 	}
 
 	function _hideLoadingBar(oContext) {
@@ -40,16 +43,16 @@ sap.ui.define([
 		let oLoadingBar = oContext.getView().byId("loadingBar"),
 			currentValue = oLoadingBar.getPercentValue();
 
+		_loadingCompleted = false;
+
 		if (currentValue < _maxProgress) {
 			currentValue += 1;
 			oLoadingBar.setPercentValue(+currentValue);
 			oLoadingBar.setDisplayValue(currentValue + "%");
+
 			setTimeout(_fillLoadingBar, _updateInterval, oContext);
-
 		} else {
-			setTimeout(_hideLoadingBar, 200, oContext);
-			setTimeout(_showComponent, 200, oContext);
-
+			_loadingCompleted = true;
 		}
 	}
 
