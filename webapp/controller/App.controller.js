@@ -10,7 +10,10 @@ sap.ui.define([
 
 	let _maxProgress = 100; // Maximum progress value for the loading bar
 	let _updateInterval = 15; // Interval for updating the loading bar
-	let _loadingCompleted = false;
+
+	function _wait(ms) {
+		return new Promise(resolve => setTimeout(resolve, ms));
+	}
 
 	function _loadComponents() {
 		let oContext = this;
@@ -18,19 +21,27 @@ sap.ui.define([
 
 		Utils.setComponentVisibility(oContext, ["loadingBar", "dashboardBtn"], false);
 
-		setTimeout(_showLoadingBar, 1000, oContext);
-		setTimeout(_fillLoadingBar, 1500, oContext);
-		setTimeout(_hideLoadingBar, 1700, oContext);
-		setTimeout(_showComponent, 1900, oContext);
+		(async function () {
+			await _wait(1000);
+			await _showLoadingBar(oContext);
+			
+			await _wait(500);
+			await _fillLoadingBar(oContext);
+
+			await _wait(500);
+			await _hideLoadingBar(oContext);
+			await _showComponent(oContext);
+
+		})();
 	}
 
-	function _hideLoadingBar(oContext) {
+	async function _hideLoadingBar(oContext) {
 		let loadingBarId = "loadingBar";
 
 		Utils.setComponentVisibility(oContext, [loadingBarId], false);
 	}
 
-	function _showLoadingBar(oContext) {
+	async function _showLoadingBar(oContext) {
 		let loadingBarId = "loadingBar",
 			oLoadingBar = oContext.getView().byId(loadingBarId);
 
@@ -39,24 +50,20 @@ sap.ui.define([
 		oLoadingBar.setDisplayValue("0%");
 	}
 
-	function _fillLoadingBar(oContext) {
+	async function _fillLoadingBar(oContext) {
 		let oLoadingBar = oContext.getView().byId("loadingBar"),
 			currentValue = oLoadingBar.getPercentValue();
 
-		_loadingCompleted = false;
-
-		if (currentValue < _maxProgress) {
+		while (currentValue < _maxProgress) {
 			currentValue += 1;
 			oLoadingBar.setPercentValue(+currentValue);
 			oLoadingBar.setDisplayValue(currentValue + "%");
 
-			setTimeout(_fillLoadingBar, _updateInterval, oContext);
-		} else {
-			_loadingCompleted = true;
-		}
+			await _wait(_updateInterval); 
+		} 
 	}
 
-	function _showComponent(oContext) {
+	async function _showComponent(oContext) {
 		let oLoadingBar = oContext.getView().byId("loadingBar");
 
 		if (oLoadingBar.getPercentValue() === 100) {
