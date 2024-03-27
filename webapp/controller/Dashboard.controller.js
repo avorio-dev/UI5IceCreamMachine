@@ -216,13 +216,8 @@ sap.ui.define([
             Utils.onNavTo(this, sNavTo);
         },
 
-        onNavToInvoicesList: function () {
-            let sNavTo = "toInvoicesList";
-            Utils.onNavTo(this, sNavTo);
-        },
-
-        onNavToMockDataInvoicesList: function () {
-            let sNavTo = "toMockInvoicesList";
+        onNavToInvoicesLocalList: function () {
+            let sNavTo = "toInvoicesLocalList";
             Utils.onNavTo(this, sNavTo);
         },
 

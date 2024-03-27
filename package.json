@@ -8,5 +8,8 @@
     "start": "ui5 serve -o webapp/index.html"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "ui5-middleware-simpleproxy": "^3.2.14"
+  }
 }

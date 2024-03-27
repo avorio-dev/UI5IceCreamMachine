@@ -55,14 +55,14 @@
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop"
                 header="{i18n>CounterTile}"
                 subheader="{i18n>CounterSubTile}"
-                press=".onNavToInvoicesList"
+                press=".onNavToInvoicesLocalList"
             >
                 <tileContent>
                     <TileContent>
                         <content>
                             <NumericContent
                                 value="{
-                                    path: 'invoices>/value',
+                                    path: 'invoicesLocal>/value',
                                     formatter: '.getEntityCount'
                                 }"
                                 indicator="None"
@@ -73,7 +73,7 @@
                 </tileContent>
             </GenericTile>
 
-            <!-- Simple Tile with Data from Mock Server -->
+            <!-- Simple Tile with Data from OData -->
             <GenericTile
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop"
                 header="{i18n>CounterTile}"

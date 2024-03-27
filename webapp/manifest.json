@@ -14,7 +14,7 @@
 			"version": "1.40.12"
 		},
 		"dataSources": {
-			"invoiceRemote": {
+			"invoicesRemote": {
 				"uri": "https://services.odata.org/northwind/northwind.svc/Invoices/",
 				"type": "OData",
 				"settings": {
@@ -97,10 +97,13 @@
 				"settings": {},
 				"uri": "model/dummy_data/feeds.xml"
 			},
-			"invoices": {
+			"invoicesLocal": {
 				"type": "sap.ui.model.json.JSONModel",
 				"settings": {},
 				"uri": "model/dummy_data/invoices.json"
+			},
+			"invoicesRemote":{
+				"dataSource": "invoicesRemote"
 			}
 		},
 		"routing": {
@@ -131,9 +134,9 @@
 					"target": "processFlow"
 				},
 				{
-					"pattern": "toInvoicesList",
-					"name": "toInvoicesList",
-					"target": "invoices"
+					"pattern": "toInvoicesLocalList",
+					"name": "toInvoicesLocalList",
+					"target": "invoicesLocal"
 				},
 				{
 					"pattern": "toChartContainer",
@@ -144,11 +147,6 @@
 					"pattern": "toReviews",
 					"name": "toReviews",
 					"target": "reviews"
-				},
-				{
-					"pattern": "toMockInvoicesList",
-					"name": "toMockInvoicesList",
-					"target": "mockInvoicesList"
 				}
 			],
 			"targets": {
@@ -165,9 +163,9 @@
 					"viewId": "processFlow",
 					"viewName": "ProcessFlow"
 				},
-				"invoices": {
-					"viewId": "invoices",
-					"viewName": "Invoices"
+				"invoicesLocal": {
+					"viewId": "invoicesLocal",
+					"viewName": "InvoicesLocal"
 				},
 				"chartContainer": {
 					"viewId": "chartContainer",
@@ -176,10 +174,6 @@
 				"reviews": {
 					"viewId": "reviews",
 					"viewName": "Reviews"
-				},
-				"mockInvoicesList": {
-					"viewId": "mockInvoicesList",
-					"viewName": "MockInvoicesList"
 				}
 			}
 		},
