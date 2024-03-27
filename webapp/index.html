@@ -1,34 +1,48 @@
 <!DOCTYPE HTML>
 <html>
 
-	<head>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta charset="UTF-8">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta charset="UTF-8">
 
-		<title>UI5IceCreamMachine</title>
+	<title>UI5IceCreamMachine</title>
 
-		<script id="sap-ui-bootstrap"
-			src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
-			data-sap-ui-libs="sap.m, sap.ui.layout, sap.tnt"
-			data-sap-ui-compatVersion="edge"
-			data-sap-ui-resourceroots='{"UI5IceCreamMachine": ""}'>
+	<script id="sap-ui-bootstrap" src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+		data-sap-ui-libs="sap.m, sap.ui.layout, sap.tnt" data-sap-ui-compatVersion="edge"
+		data-sap-ui-resourceroots='{"UI5IceCreamMachine": ""}'>
 		</script>
 
-		<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 
-		<script>
-			sap.ui.getCore().attachInit(function() {
-				new sap.m.Shell({
-					app: new sap.ui.core.ComponentContainer({
-						height : "100%",
-						name : "UI5IceCreamMachine"
-					})
-				}).placeAt("content");
+	<script>
+		/*
+		sap.ui.getCore().attachInit(function () {
+			new sap.m.Shell({
+				app: new sap.ui.core.ComponentContainer({
+					height: "100%",
+					name: "UI5IceCreamMachine"
+				})
+			}).placeAt("content");
+		});
+		*/
+		
+		sap.ui.core.Component.create({
+			name: 'UI5IceCreamMachine',
+			manifestFirst: true,
+			async: true
+		}).then(function (oComponent) {
+			// console.log("Component created:", oComponent);
+			var oComponentContainer = new sap.ui.core.ComponentContainer({
+				component: oComponent
 			});
-		</script>
-	</head>
+			oComponentContainer.placeAt("content");
+		}).catch(function (oError) {
+			console.error("Error during component creation:", oError);
+		});
+	</script>
+</head>
 
-	<body class="sapUiBody" id="content">
-	</body>
+<body class="sapUiBody" id="content">
+</body>
 
 </html>
