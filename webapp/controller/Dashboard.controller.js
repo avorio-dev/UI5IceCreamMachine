@@ -26,34 +26,41 @@ sap.ui.define([
         _initJSONTile(oContext);
     }
 
+    function _createTileFromXMLItem(item) {
+        let title = item.getElementsByTagName("title")[0]?.textContent || "Title Not Available";
+        let description = item.getElementsByTagName("description")[0]?.textContent || "Description Not Available";
+        let pubDate = item.getElementsByTagName("pubDate")[0]?.textContent || "Date Not Available";
+        let link = item.getElementsByTagName("link")[0]?.textContent || "#";
+
+        let tile = new sap.m.GenericTile({
+            header: title,
+            subheader: description,
+            frameType: "TwoByOne",
+            press: function () {
+                window.open(link, "_blank", "noopener,noreferrer");
+            }
+        });
+
+        let tileContent = new sap.m.TileContent({
+            footer: pubDate
+        });
+
+        tile.addTileContent(tileContent);
+
+        return tile;
+    }
+
     /*
         Initializes the XML tile.
     */
     function _initXMLTile(oContext) {
         let oSlideTileXml = oContext.getView().byId("slideTileXml");
-
-        // Retrieve feeds model
         let oFeedsModel = oContext.getOwnerComponent().getModel("feeds");
 
-        // Iterate through XML items and create tiles
         let aItems = oFeedsModel.getData().getElementsByTagName("item");
         Array.from(aItems).forEach(function (oItem) {
-            let oGenericTile = new sap.m.GenericTile({
-                header: oItem.getElementsByTagName("title")[0].textContent,
-                subheader: oItem.getElementsByTagName("description")[0].textContent,
-                frameType: "TwoByOne",
-                press: function () {
-                    let link = oItem.getElementsByTagName("link")[0].textContent;
-                    window.open(link, "_blank");
-                }
-            });
-
-            let oTileContent = new sap.m.TileContent({
-                footer: oItem.getElementsByTagName("pubDate")[0].textContent,
-            });
-
-            oGenericTile.addTileContent(oTileContent);
-            oSlideTileXml.addTile(oGenericTile);
+            let tile = _createTileFromXMLItem(oItem);
+            oSlideTileXml.addTile(tile);
         });
     }
 
@@ -65,6 +72,7 @@ sap.ui.define([
         let oFeedsModel = oContext.getOwnerComponent().getModel("feeds");
 
         let aTileItems = [];
+
         let aItems = oFeedsModel.getData().getElementsByTagName("item");
         Array.from(aItems).forEach(function (oItem) {
             let oTileItem = {
