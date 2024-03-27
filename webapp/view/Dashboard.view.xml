@@ -78,8 +78,22 @@
                 class="sapUiTinyMarginBegin sapUiTinyMarginTop"
                 header="{i18n>CounterTile}"
                 subheader="{i18n>CounterSubTile}"
-                press=".onNavToMockDataInvoicesList"
+                press=".onNavToInvoicesRemoteList"
             >
+                <tileContent>
+                    <TileContent>
+                        <content>
+                            <NumericContent
+                                value="{
+                                    path: 'invoicesRemote>/value',
+                                    formatter: '.getEntityCount'
+                                }"
+                                indicator="None"
+                                valueColor="Neutral"
+                            />
+                        </content>
+                    </TileContent>
+                </tileContent>
             </GenericTile>
 
             <!-- Simple Tile with Micro Chart-->
