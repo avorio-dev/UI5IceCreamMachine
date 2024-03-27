@@ -20,10 +20,6 @@
 				"settings": {
 					"odataVersion": "2.0"
 				}
-			},
-			"feedsRemote":{
-				"uri": "https://www.ansa.it/sito/ansait_rss.xml",
-				"type": "XML"
 			}
 		}
 	},
@@ -100,9 +96,6 @@
 				"type": "sap.ui.model.xml.XMLModel",
 				"settings": {},
 				"uri": "model/dummy_data/feeds.xml"
-			},
-			"feedsRemote":{
-				"dataSource": "feedsRemote"
 			},
 			"invoicesLocal": {
 				"type": "sap.ui.model.json.JSONModel",

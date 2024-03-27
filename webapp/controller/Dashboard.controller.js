@@ -24,6 +24,9 @@ sap.ui.define([
         // Initialize XML and JSON tiles
         _initXMLTile(oContext);
         _initJSONTile(oContext);
+
+        let test = oContext.getOwnerComponent().getModel("invoicesRemote").getData();
+        console.log(test);
     }
 
     function _createTileFromXMLItem(item) {
