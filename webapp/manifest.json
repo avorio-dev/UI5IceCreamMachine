@@ -20,6 +20,10 @@
 				"settings": {
 					"odataVersion": "2.0"
 				}
+			},
+			"feedsRemote":{
+				"uri": "https://www.ansa.it/sito/ansait_rss.xml",
+				"type": "XML"
 			}
 		}
 	},
@@ -104,6 +108,9 @@
 			},
 			"invoicesRemote":{
 				"dataSource": "invoicesRemote"
+			},
+			"feedsRemote":{
+				"dataSource": "feedsRemote"
 			}
 		},
 		"routing": {
