@@ -1,7 +1,8 @@
 sap.ui.define([
-    "sap/ui/core/routing/History"
+    "sap/ui/core/routing/History",
+    "sap/ui/core/format/NumberFormat",
 
-], function (History) {
+], function (History, NumberFormat) {
     "use strict";
 
     // --> PRIVATE SECTION
@@ -79,15 +80,54 @@ sap.ui.define([
         });
     }
 
+    /*
+        Formats a number with specified decimals using a short style.
+        
+        Parameters:
+            value {number}: The number to be formatted.
+            decimals {number}: The number of decimals to display.
+        
+        Returns:
+            {string}: The formatted number.
+    */
+    function _formatNumber(value, decimals) {
+        let oFloatFormatter = NumberFormat.getFloatInstance({
+            style: "short",
+            decimals: decimals
+        });
+        return oFloatFormatter.format(value);
+    }
+
+    /*
+        Formats a date object to a localized date string.
+        
+        Parameters:
+            date {Date|string}: The date object or string representation of the date.
+        
+        Returns:
+            {string}: The formatted date string.
+    */
+    function _formatDate(date) {
+        let oDate = new Date(Date.parse(date));
+        return oDate.toLocaleDateString();
+    }
+
 
     // --> PUBLIC SECTION
     // --------------------------------------------------
 
     return {
+
+        // --> Public Interface
+        // --------------------------------------------------
+
         onNavTo: _onNavTo,
         onNavBack: _onNavBack,
         setBusyIndicatorVisibility: _setBusyIndicatorVisibility,
         setComponentVisibility: _setComponentVisibility,
+        formatNumber: _formatNumber,
+        formatDate: _formatDate
+        
     };
 
 });

@@ -3,51 +3,52 @@ sap.ui.define([
     'sap/ui/model/json/JSONModel',
     "sap/ui/model/xml/XMLModel",
     "sap/base/strings/formatMessage",
-    "sap/ui/core/format/NumberFormat",
     "../libs/Settings",
     "../libs/Utils"
 
-], function (Controller, JSONModel, XMLModel, formatMessage, NumberFormat, Settings, Utils) {
+], function (Controller, JSONModel, XMLModel, formatMessage, Settings, Utils) {
     "use strict";
 
-    // --> GLOBALS
-    // --------------------------------------------------
-    var sNavTo;
-
-    // --> FUNCTIONS
+    // --> PRIVATE SECTION
     // --------------------------------------------------
 
-    /* Fill Tile with data loaded from XML Model */
+    /*
+        Loads components and initializes the view.
+    */
+    function _loadComponents() {
+        let oContext = this;
+
+        // Load settings fragment into toolbar
+        Settings.loadSettingsFrag(oContext, "toolbar");
+
+        // Initialize XML and JSON tiles
+        _initXMLTile(oContext);
+        _initJSONTile(oContext);
+    }
+
+    /*
+        Initializes the XML tile.
+    */
     function _initXMLTile(oContext) {
+        let oSlideTileXml = oContext.getView().byId("slideTileXml");
 
-        var oSlideTileXml = oContext.getView().byId("slideTileXml");
+        // Retrieve feeds model
+        let oFeedsModel = oContext.getOwnerComponent().getModel("feeds");
 
-        /* 
-        var sRssLink = "https://www.ansa.it/sito/ansait_rss.xml";
-        var oXmlModel = new XMLModel();
-
-        oXmlModel.loadData(sRssLink);
-        oContext.getView().setModel(oXmlModel, "feeds");
-        */
-
-        var oFeedsModel = oContext.getOwnerComponent().getModel("feeds");
-
-        var aItems = oFeedsModel.getData().getElementsByTagName("item");
+        // Iterate through XML items and create tiles
+        let aItems = oFeedsModel.getData().getElementsByTagName("item");
         Array.from(aItems).forEach(function (oItem) {
-
-            var oGenericTile = new sap.m.GenericTile({
+            let oGenericTile = new sap.m.GenericTile({
                 header: oItem.getElementsByTagName("title")[0].textContent,
                 subheader: oItem.getElementsByTagName("description")[0].textContent,
                 frameType: "TwoByOne",
-
                 press: function () {
-                    //window.open("https://shorturl.at/tILT5", "_blank");
-                    var link = oItem.getElementsByTagName("link")[0].textContent;
+                    let link = oItem.getElementsByTagName("link")[0].textContent;
                     window.open(link, "_blank");
                 }
             });
 
-            var oTileContent = new sap.m.TileContent({
+            let oTileContent = new sap.m.TileContent({
                 footer: oItem.getElementsByTagName("pubDate")[0].textContent,
             });
 
@@ -56,15 +57,17 @@ sap.ui.define([
         });
     }
 
-    /* Fill Tile with data loaded from XML Model and Converted in JSON Model */
+    /*
+        Initializes the JSON tile.
+    */
     function _initJSONTile(oContext) {
-        var oSlideTileXmlToJson = oContext.getView().byId("slideTileXmlToJson");
-        var oFeedsModel = oContext.getOwnerComponent().getModel("feeds");
+        let oSlideTileXmlToJson = oContext.getView().byId("slideTileXmlToJson");
+        let oFeedsModel = oContext.getOwnerComponent().getModel("feeds");
 
-        var aTileItems = [];
-        var aItems = oFeedsModel.getData().getElementsByTagName("item");
+        let aTileItems = [];
+        let aItems = oFeedsModel.getData().getElementsByTagName("item");
         Array.from(aItems).forEach(function (oItem) {
-            var oTileItem = {
+            let oTileItem = {
                 title: oItem.getElementsByTagName("title")[0].textContent,
                 description: oItem.getElementsByTagName("description")[0].textContent,
                 pubDate: oItem.getElementsByTagName("pubDate")[0].textContent,
@@ -74,109 +77,154 @@ sap.ui.define([
             aTileItems.push(oTileItem);
         });
 
-        var oTileModel = new JSONModel();
+        let oTileModel = new JSONModel();
         oTileModel.setData({ tiles: aTileItems });
         oSlideTileXmlToJson.setModel(oTileModel, "feedsXmlToJson");
-
     }
 
-    // --> EVENTS
+    /*
+        Handles the change event for setting the theme.
+        
+        Parameters:
+            oEvent {object}: The event object.
+    */
+    function _onSetTheme(oEvent) {
+        Settings.setTheme(oEvent);
+    }
+
+    /*
+        Handles the click event for displaying version information.
+        
+        Parameters:
+            oEvent {object}: The event object.
+    */
+    function _onVersionInfo(oEvent) {
+        Settings.onVersionInfo(oEvent);
+    }
+
+    /*
+        Calculates the progress based on the state of the nodes.
+        
+        Parameters:
+            aNodes {array}: An array of nodes.
+        
+        Returns:
+            {number}: The progress percentage.
+    */
+    function _getProgress(aNodes) {
+        if (!aNodes || aNodes.length === 0) {
+            return 0;
+        }
+        let iSum = 0;
+        for (var i = 0; i < aNodes.length; i++) {
+            iSum += aNodes[i].state === "Positive";
+        }
+        let fPercent = (iSum / aNodes.length) * 100;
+        return fPercent.toFixed(0);
+    }
+
+    /*
+        Gets the count of entities.
+        
+        Returns:
+            {number}: The count of entities.
+    */
+    function _getEntitiesCount(entities) {
+        return entities && entities.length || 0;
+    }
+
+    /*
+        Formats a number with 2 decimals.
+        
+        Parameters:
+            value {number}: The number to be formatted.
+    */
+    function _formatNumber(value) {
+        Utils.formatNumber(value, 2);
+    }
+
+    /*
+        Formats a date.
+        
+        Parameters:
+            date {Date|string}: The date object or string representation of the date.
+    */
+    function _formatDate(date) {
+        Utils.formatDate(date)
+    }
+
+    /*
+        Handles the click event for opening a feed.
+        
+        Parameters:
+            oEvent {object}: The event object.
+    */
+    function _onFeedOpen(oEvent) {
+        let oSource = oEvent.getSource();
+        let sLink = oSource.getBindingContext("feedsXmlToJson").getProperty("link");
+        window.open(sLink, "_blank");
+    }
+
+
+    function _onRepoZAG() {
+        let sLink = "https://github.com/avorio-dev/S4ZAG/tree/main";
+        window.open(sLink, "_blank");
+    }
+
+    function _onRepoZAGUI5() {
+        let sLink = "https://github.com/avorio-dev/UI5IceCreamMachine";
+        window.open(sLink, "_blank");
+    }
+
+
+    // --> PUBLIC SECTION
     // --------------------------------------------------
+
     return Controller.extend("UI5IceCreamMachine.controller.Dashboard", {
 
-        /* Initialize all components on first call of the page */
-        onInit: function () {
+        // --> Public Interface
+        // --------------------------------------------------
 
-            Settings.loadSettingsFrag(this, "toolbar");
-            _initXMLTile(this);
-            _initJSONTile(this);
-
-        },
-
+        onInit: _loadComponents,
         formatMessage: formatMessage,
+        onSetTheme: _onSetTheme,
+        onVersionInfo: _onVersionInfo,
+        getProgress: _getProgress,
+        getEntityCount: _getEntitiesCount,
+        formatNumber: _formatNumber,
+        formatJSONDate: _formatDate,
+        onFeedOpen: _onFeedOpen,
+        onRepoZag: _onRepoZAG,
+        onRepoZagUI5: _onRepoZAGUI5,
 
-        onSetTheme: function (oEvent) {
-            Settings.setTheme(oEvent);
-        },
-
-        onVersionInfo: function (oEvent) {
-            Settings.onVersionInfo(oEvent);
-        },
-
-        getProgress: function (aNodes) {
-            if (!aNodes || aNodes.length === 0) {
-                return 0;
-            }
-            var iSum = 0;
-            for (var i = 0; i < aNodes.length; i++) {
-                iSum += aNodes[i].state === "Positive";
-            }
-            var fPercent = (iSum / aNodes.length) * 100;
-            return fPercent.toFixed(0);
-        },
-
-        getEntityCount: function (entities) {
-            return entities && entities.length || 0;
-        },
-
-        formatNumber: function (value) {
-            var oFloatFormatter = NumberFormat.getFloatInstance({
-                style: "short",
-                decimals: 2
-            });
-            return oFloatFormatter.format(value);
-        },
-
-        formatJSONDate: function (date) {
-            var oDate = new Date(Date.parse(date));
-            return oDate.toLocaleDateString();
-        },
-
-        onFeedOpen: function (oEvent) {
-            //window.open("https://shorturl.at/tILT5", "_blank");
-            var oSource = oEvent.getSource();
-            var sLink = oSource.getBindingContext("feedsXmlToJson").getProperty("link");
-            window.open(sLink, "_blank");
-        },
-
-        onRepoZag: function () {
-            var sLink = "https://github.com/avorio-dev/S4ZAG/tree/main";
-            window.open(sLink, "_blank");
-        },
-
-        onRepoZagUI5: function () {
-            var sLink = "https://github.com/avorio-dev/UI5IceCreamMachine";
-            window.open(sLink, "_blank");
-        },
-
-        // --> NAV TO EVENTS
+        // --> NavTo Events
         // --------------------------------------------------
         getRouter: function () {
             return this.getOwnerComponent().getRouter();
         },
 
         onNavToProcessFlow: function () {
-            sNavTo = "toProcessFlow";
+            let sNavTo = "toProcessFlow";
             Utils.onNavTo(this, sNavTo);
         },
 
         onNavToInvoicesList: function () {
-            sNavTo = "toInvoicesList";
+            let sNavTo = "toInvoicesList";
             Utils.onNavTo(this, sNavTo);
         },
 
         onNavToMockDataInvoicesList: function () {
-            sNavTo = "toMockInvoicesList";
+            let sNavTo = "toMockInvoicesList";
             Utils.onNavTo(this, sNavTo);
         },
 
         onNavToChartContainer: function () {
-            sNavTo = "toChartContainer";
+            let sNavTo = "toChartContainer";
             Utils.onNavTo(this, sNavTo);
         },
 
         onNavToReviews: function () {
-            sNavTo = "toReviews";
+            let sNavTo = "toReviews";
             Utils.onNavTo(this, sNavTo);
         }
     });
