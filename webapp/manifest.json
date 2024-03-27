@@ -78,19 +78,19 @@
 			},
 			"process": {
 				"type": "sap.ui.model.json.JSONModel",
-				"uri": "model/dummy_data/ProcessFlowData.json"
+				"uri": "model/dummy_data/processFlowData.json"
 			},
 			"business": {
 				"type": "sap.ui.model.json.JSONModel",
-				"uri": "model/dummy_data/BusinessData.json"
+				"uri": "model/dummy_data/businessData.json"
 			},
 			"suppliers": {
 				"type": "sap.ui.model.json.JSONModel",
-				"uri": "model/dummy_data/Suppliers.json"
+				"uri": "model/dummy_data/suppliers.json"
 			},
 			"reviews": {
 				"type": "sap.ui.model.json.JSONModel",
-				"uri": "model/dummy_data/Reviews.json"
+				"uri": "model/dummy_data/reviews.json"
 			},
 			"feeds": {
 				"type": "sap.ui.model.xml.XMLModel",
