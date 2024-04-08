@@ -25,10 +25,28 @@ sap.ui.define([
         _initXMLTile(oContext);
         _initJSONTile(oContext);
 
+        // Example usage of "invoicesRemote" model
         let test = oContext.getOwnerComponent().getModel("invoicesRemote").getData();
         console.log(test);
     }
 
+    /*
+        Initializes the XML tile.
+    */
+    function _initXMLTile(oContext) {
+        let oSlideTileXml = oContext.getView().byId("slideTileXml");
+        let oFeedsModel = oContext.getOwnerComponent().getModel("feeds");
+
+        let aItems = oFeedsModel.getData().getElementsByTagName("item");
+        Array.from(aItems).forEach(function (oItem) {
+            let tile = _createTileFromXMLItem(oItem);
+            oSlideTileXml.addTile(tile);
+        });
+    }
+    
+    /*
+        Creates a tile from an XML item.
+    */
     function _createTileFromXMLItem(item) {
         let title = item.getElementsByTagName("title")[0]?.textContent || "Title Not Available";
         let description = item.getElementsByTagName("description")[0]?.textContent || "Description Not Available";
@@ -51,20 +69,6 @@ sap.ui.define([
         tile.addTileContent(tileContent);
 
         return tile;
-    }
-
-    /*
-        Initializes the XML tile.
-    */
-    function _initXMLTile(oContext) {
-        let oSlideTileXml = oContext.getView().byId("slideTileXml");
-        let oFeedsModel = oContext.getOwnerComponent().getModel("feeds");
-
-        let aItems = oFeedsModel.getData().getElementsByTagName("item");
-        Array.from(aItems).forEach(function (oItem) {
-            let tile = _createTileFromXMLItem(oItem);
-            oSlideTileXml.addTile(tile);
-        });
     }
 
     /*
@@ -176,12 +180,17 @@ sap.ui.define([
         window.open(sLink, "_blank");
     }
 
-
+    /*
+        Opens the repository ZAG link.
+    */
     function _onRepoZAG() {
         let sLink = "https://github.com/avorio-dev/S4ZAG/tree/main";
         window.open(sLink, "_blank");
     }
 
+    /*
+        Opens the repository ZAG UI5 link.
+    */
     function _onRepoZAGUI5() {
         let sLink = "https://github.com/avorio-dev/UI5IceCreamMachine";
         window.open(sLink, "_blank");
@@ -207,6 +216,7 @@ sap.ui.define([
         onFeedOpen: _onFeedOpen,
         onRepoZag: _onRepoZAG,
         onRepoZagUI5: _onRepoZAGUI5,
+        
 
         // --> NavTo Events
         // --------------------------------------------------
