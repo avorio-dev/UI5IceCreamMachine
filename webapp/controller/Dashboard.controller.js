@@ -234,6 +234,11 @@ sap.ui.define([
             Utils.onNavTo(this, sNavTo);
         },
 
+        onNavToInvoicesRemoteList: function () {
+            let sNavTo = "toInvoicesRemoteList";
+            Utils.onNavTo(this, sNavTo);
+        },
+
         onNavToChartContainer: function () {
             let sNavTo = "toChartContainer";
             Utils.onNavTo(this, sNavTo);

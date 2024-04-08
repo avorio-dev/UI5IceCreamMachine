@@ -1,0 +1,116 @@
+<mvc:View
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:layout="sap.ui.layout"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    controllerName="UI5IceCreamMachine.controller.InvoicesRemote"
+    displayBlock="true"
+>
+    <Page
+        title="{i18n>invoicesTitle}"
+        backgroundDesign="Solid"
+        showNavButton="true"
+        navButtonPress=".onNavBack"
+    >
+        <!-- 
+        Adapt controller name
+        Adapt page title
+    -->
+        <VBox fitContainer="true">
+            <Table
+                id="invoicesTable"
+                items="{invoicesRemote>/value}"
+                alternateRowColors="false"
+                backgroundDesign="Solid"
+                growing="true"
+                growingScrollToLoad="false"
+                growingThreshold="50"
+                mode="MultiSelect"
+            >
+                <columns>
+                    <Column>
+                        <Label
+                            text="Ship Name"
+                            design="Bold"
+                            wrapping="true"
+                            wrappingType="Hyphenated"
+                        />
+                    </Column>
+                    <Column>
+                        <Label
+                            text="Ship Address"
+                            design="Bold"
+                            wrapping="true"
+                            wrappingType="Hyphenated"
+                        />
+                    </Column>
+                    <Column>
+                        <Label
+                            text="Ship City"
+                            design="Bold"
+                            wrapping="true"
+                            wrappingType="Hyphenated"
+                        />
+                    </Column>
+                    <Column>
+                        <Label
+                            text="Ship Country"
+                            design="Bold"
+                            wrapping="true"
+                            wrappingType="Hyphenated"
+                        />
+                    </Column>
+                    <Column>
+                        <Label
+                            text="Customer Name"
+                            design="Bold"
+                            wrapping="true"
+                            wrappingType="Hyphenated"
+                        />
+                    </Column>
+                    <Column>
+                        <Label
+                            text="Unit Price"
+                            design="Bold"
+                            wrapping="true"
+                            wrappingType="Hyphenated"
+                        />
+                    </Column>
+                    <Column>
+                        <Label
+                            text="Quantity"
+                            design="Bold"
+                            wrapping="true"
+                            wrappingType="Hyphenated"
+                        />
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{invoicesRemote>ShipName}" />
+                            <Text text="{invoicesRemote>ShipAddress}" />
+                            <Text text="{invoicesRemote>ShipCity}" />
+                            <Text text="{invoicesRemote>ShipCountry}" />
+                            <Text text="{invoicesRemote>CustomerName}" />
+                            <!-- <Text text="{invoicesRemote>UnitPrice}" /> -->
+                            <Text
+                                text="{
+                                        parts: [
+                                            {path: 'invoicesRemote>UnitPrice'}, 
+                                            {path: 'invoicesRemote>Currency'}
+                                        ], 
+                                        formatter: '.formatCurrency'
+                                    }"
+                            />
+                            <Text text="{invoicesRemote>Quantity}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </VBox>
+    </Page>
+</mvc:View>

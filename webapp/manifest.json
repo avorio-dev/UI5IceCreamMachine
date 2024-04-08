@@ -14,7 +14,14 @@
 			"version": "1.40.12"
 		},
 		"dataSources": {
-			"invoicesRemote": {
+			"invoicesRemote":{
+				"uri": "https://services.odata.org/northwind/northwind.svc/Invoices",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0"
+				}
+			},
+			"invoicesRemoteBTP": {
 				"uri": "/destinations/northwind/V2/northwind/northwind.svc/",
 				"type": "OData",
 				"settings": {
@@ -147,6 +154,11 @@
 					"target": "invoicesLocal"
 				},
 				{
+					"pattern": "toInvoicesRemoteList",
+					"name": "toInvoicesRemoteList",
+					"target": "invoicesRemote"
+				},
+				{
 					"pattern": "toChartContainer",
 					"name": "toChartContainer",
 					"target": "chartContainer"
@@ -174,6 +186,10 @@
 				"invoicesLocal": {
 					"viewId": "invoicesLocal",
 					"viewName": "InvoicesLocal"
+				},
+				"invoicesRemote": {
+					"viewId": "invoicesRemote",
+					"viewName": "InvoicesRemote"
 				},
 				"chartContainer": {
 					"viewId": "chartContainer",

@@ -16,11 +16,25 @@ sap.ui.define([
             routeName {string}: The name of the route to navigate to.
     */
     function _onNavTo(oContext, routeName) {
+        let oRouter = oContext.getOwnerComponent().getRouter();
+
+        // Check if route exists before proceeding
+        let oRoute = oRouter.getRoute(routeName);
+        if (!oRoute) {
+            console.error(`Route '${routeName}' not found.`);
+            return;
+        }
+
+        // Check if target view for the route exists based on debug info
+        const targetViewName = oRoute._oConfig.target;
+        if (!targetViewName) {
+            console.error(`Route '${routeName}' does not specify a target view.`);
+            return;
+        }
+
         _setBusyIndicatorVisibility(true);
 
-        let oRouter = oContext.getOwnerComponent().getRouter();
         oRouter.navTo(routeName);
-
         oRouter.getRoute(routeName).attachPatternMatched(function () {
             _setBusyIndicatorVisibility(false);
         });
@@ -127,7 +141,7 @@ sap.ui.define([
         setComponentVisibility: _setComponentVisibility,
         formatNumber: _formatNumber,
         formatDate: _formatDate
-        
+
     };
 
 });
