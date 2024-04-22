@@ -14,7 +14,7 @@
 			"version": "1.40.12"
 		},
 		"dataSources": {
-			"invoicesRemote":{
+			"invoicesRemote": {
 				"uri": "https://services.odata.org/northwind/northwind.svc/Invoices",
 				"type": "OData",
 				"settings": {
@@ -109,17 +109,16 @@
 				"settings": {},
 				"uri": "model/dummy_data/invoices.json"
 			},
-			"invoicesRemote":{
+			"invoicesRemote": {
 				"type": "sap.ui.model.odata.v2.ODataModel",
-                "settings": {
-                    "defaultOperationMode": "Server",
-                    "defaultBindingMode": "TwoWay",
-                    "defaultCountMode": "Request"
-                },
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "TwoWay",
+					"defaultCountMode": "Request"
+				},
 				"dataSource": "invoicesRemote",
 				"preload": true
 			}
-			
 		},
 		"routing": {
 			"config": {
@@ -174,6 +173,11 @@
 					"viewId": "app",
 					"viewName": "App",
 					"transition": "flip"
+				},
+				"notFound": {
+					"id": "notFound",
+					"name": "NotFound",
+					"transition": "show"
 				},
 				"dashboard": {
 					"viewId": "dashboard",
