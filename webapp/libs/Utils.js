@@ -32,6 +32,14 @@ sap.ui.define([
             return;
         }
 
+        // Check if target view exists 
+        /*
+        if (!sap.ui.getCore().byId(targetViewName)) {
+            console.error(`Target view '${targetViewName}' not exists.`);
+            return;
+        }
+        */
+
         _setBusyIndicatorVisibility(true);
 
         oRouter.navTo(routeName);
