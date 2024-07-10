@@ -1,6 +1,13 @@
 # UI5IceCreamMachine
 Ice Cream Machine Template with SAP UI5
 
+## npm command for local dev
+        npm install --global @ui5/cli
+        npm i -D @ui5/cli
+        npm init
+        npx @ui5/cli init
+
+
 >## What to adapt if you use:
 >### Manifest.json
 >>1. [sap.app].id : Change with your App namespace
