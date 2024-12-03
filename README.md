@@ -34,3 +34,29 @@ Ice Cream Machine Template with SAP UI5
 
 >### i18n.properties
 >> Adapt your texts
+
+
+
+# ZAG UI5
+|               |
+| ------------- |
+|**Description**<br>An SAP Fiori Application by ZAG|
+|**Module Name**<br>zagui5|
+|**UI5 Version**<br>1.131.0|
+
+---
+
+## Starting the generated app
+
+In order to launch the generated app, simply run the following from the generated app root folder:
+```
+    npm start
+```
+
+## Step by Step tasklist
+
+**Change index.html**
+- If app not works properly with standard library, then replace default attribute in "script" tag:
+<br>*src="resources/sap-ui-core.js"* 
+<br>into 
+<br>*src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"*
